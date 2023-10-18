@@ -15,13 +15,9 @@ use App\Http\Controllers\Admin\DashBoardController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('dashboard');
-})->middleware(['auth', 'isAdmin'])->name('home');
+})->middleware('auth')->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

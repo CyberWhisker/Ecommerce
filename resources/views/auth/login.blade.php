@@ -38,10 +38,19 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
+            <x-secondary-button class="ml-3" id="register-button">
+                {{ __('Register') }}
+            </x-secondary-button>
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
     </form>
+    
 </x-guest-layout>
+
+<script>
+    document.getElementById('register-button').addEventListener('click', function() {
+        window.location.href = '{{ route('register') }}';
+    });
+</script>
