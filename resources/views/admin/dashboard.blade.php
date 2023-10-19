@@ -1,5 +1,10 @@
 @extends('layouts.master')
-@section('content')
+
+@section('title')
+    Dashboard
+@endsection
+
+@section('navigation')
     
 @endsection
 

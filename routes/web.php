@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\Admin\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [DashBoardController::class, 'index'])->name('dashboard');
+    Route::get('users', [UsersController::class, 'index'])->name('users');
 });
 
 require __DIR__.'/auth.php';

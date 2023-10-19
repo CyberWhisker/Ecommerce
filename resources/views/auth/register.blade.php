@@ -1,12 +1,36 @@
+<style>
+    .fade-div {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s;
+        padding: 20px;
+        border: 1px solid #ccc;
+    }
+</style>
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- First Name -->
+        <div class="d-none">
+            <div>
+                <x-input-label for="first_name" :value="__('First Name')" />
+                <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
+                <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+            </div>
+
+        </div>
+        <!-- Middle Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="middle_name" :value="__('Middle Name')" />
+            <x-text-input id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" :value="old('middle_name')" required autofocus autocomplete="middle_name" />
+            <x-input-error :messages="$errors->get('middle_name')" class="mt-2" />
+        </div>
+        <!-- Last Name -->
+        <div>
+            <x-input-label for="last_name" :value="__('Last Name')" />
+            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="last_name" />
+            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -50,3 +74,10 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Your code here
+        console.log("Document is ready");
+    });
+</script>

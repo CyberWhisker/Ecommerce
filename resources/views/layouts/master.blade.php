@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Master</title>
+    <title>@yield('title')</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendors/base/vendor.bundle.base.css') }}">
@@ -16,14 +16,22 @@
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
+    {{-- BootStrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #e3e3e3;">
     <div class="container-scroller">
-        @yield('content')
+        @yield('navigation')
         <div class="container-scroller">
             @include('layouts.inc.admin.navbar')
             <div class="container-fluid page-body-wrapper">
                 @include('layouts.inc.admin.slidebar')
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @yield('content')
+                    </div>
+                </div>
             </div>
         </div>
         <!-- plugins:js -->
@@ -45,6 +53,8 @@
         <script src="{{ asset('admin/js/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('admin/js/dataTables.bootstrap4.js') }}"></script>
         <!-- End custom js for this page-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
     </div>
 </body>
 </html>
