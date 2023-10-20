@@ -27,8 +27,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+    // Web links start here
     Route::get('dashboard', [DashBoardController::class, 'index'])->name('dashboard');
     Route::get('users', [UsersController::class, 'index'])->name('users');
+    //Function start here
+    Route::post('storeUser', [UsersController::class, 'storeUser'])->name('storeUser');
+    Route::post('updateRole', [UsersController::class, 'updateRole'])->name('updateRole');
 });
 
 require __DIR__.'/auth.php';

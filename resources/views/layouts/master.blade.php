@@ -19,6 +19,8 @@
     {{-- BootStrap --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    {{-- BootStrap Icon --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body style="background-color: #e3e3e3;">
     <div class="container-scroller">
@@ -29,6 +31,22 @@
                 @include('layouts.inc.admin.slidebar')
                 <div class="main-panel">
                     <div class="content-wrapper">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert" id="alertSuccess">
+                                {{session('success')}} 
+                                <a href="" role="button" id="closeAlertSuccess">
+                                    <i class="bi bi-x-lg" style="color: red; float:right"></i>
+                                </a>
+                            </div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert" id="alertDanger">
+                                {{session('error')}}
+                                <a href="" role="button" id="closeAlertDanger">
+                                    <i class="bi bi-x-lg"></i>
+                                </a>
+                            </div>
+                        @endif
                         @yield('content')
                     </div>
                 </div>
@@ -54,7 +72,15 @@
         <script src="{{ asset('admin/js/dataTables.bootstrap4.js') }}"></script>
         <!-- End custom js for this page-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
+        {{-- Jquery --}}
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        @yield('script')
+        <script>
+            $('#closeAlertSuccess').click(function (e) { 
+                e.preventDefault();
+                $('#alertSuccess').addClass('d-none');
+            });
+        </script>
     </div>
 </body>
 </html>
