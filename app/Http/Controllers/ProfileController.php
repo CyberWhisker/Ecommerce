@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Store;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,13 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $store = new Store();
+        $user_role = Auth::user()->role_as;
+        $store_address = $store->fetchUserStore(Auth::user()->id);
         return view('profile.edit', [
             'user' => $request->user(),
+            'user_role' => $user_role,
+            'store_address' => $store_address
         ]);
     }
 

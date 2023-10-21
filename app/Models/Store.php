@@ -15,6 +15,6 @@ class Store extends Model
         'province',
     ];
     public function fetchUserStore($user_id) {
-        dd($user_id)
+        return $this->where('user_id', $user_id)->first();
     }
 }

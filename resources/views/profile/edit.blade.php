@@ -19,7 +19,9 @@
                         @include('profile.partials.update-profile-information-form')
                     </div>
                     <div class="col">
-                        @include('profile.partials.update-store-information-form')
+                        <div class="{{$user_role == 1 ? '' : 'd-none'}}">
+                            @include('profile.partials.update-store-information-form')
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -24,7 +25,7 @@ class UsersController extends Controller
     public function storeUser(Request $request)
     {
         try {
-            $validation = $request->validate([
+            $request->validate([
                 'first_name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
                 'middle_name' => ['required', 'string', 'max:255'],
@@ -33,9 +34,6 @@ class UsersController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
                 'password' => ['required'],
             ]);
-            if (!$validation) {
-                return redirect()->back()->with('error', 'Please fill in form');
-            };
             $user = User::create([
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
@@ -47,14 +45,53 @@ class UsersController extends Controller
             ]);
             return redirect()->back()->with('success', 'Successfully added user');
         } catch (Exception $e) {
-            dd($e);
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+    public function editUser(Request $request){
+        try {
+            $request->validate([
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'middle_name' => ['required', 'string', 'max:255'],
+                'address' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
+            ]);
+            User::where('id',$request->user_id)->update([
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name,
+                'last_name' => $request->last_name,
+                'address' => $request->address,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+            ]);
+            return redirect()->back()->with('success', 'Successfully edited user');
+        } catch (Exception $e) {
+            // dd($e);
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+    public function deleteUser(Request $request){
+        try {
+            $request->validate([
+                'user_id' => ['required']
+            ]);
+            User::where('id', $request->user_id)->delete();
+            return redirect()->back()->with('success', 'Successfully deleted user');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
     function updateRole(Request $request){
-        User::where('id', $request->user_id)
-            ->update([
-                'role_as' => $request->role_as
-            ]);
-        return redirect()->back()->with('success', 'Successfully updated role');
+        try {
+            User::where('id', $request->user_id)
+                ->update([
+                    'role_as' => $request->role_as
+                ]);
+            return redirect()->back()->with('success', 'Successfully updated role');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

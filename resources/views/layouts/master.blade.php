@@ -21,6 +21,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     {{-- BootStrap Icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .dropdown-menu {
+            border-radius: 5px !important;
+        }
+        .dropdown-menu a:hover {
+            background-color: rgba(217, 233, 206, 0.73)
+        }
+    </style>
 </head>
 <body style="background-color: #e3e3e3;">
     <div class="container-scroller">
@@ -43,7 +51,7 @@
                             <div class="alert alert-danger" role="alert" id="alertDanger">
                                 {{session('error')}}
                                 <a href="" role="button" id="closeAlertDanger">
-                                    <i class="bi bi-x-lg"></i>
+                                    <i class="bi bi-x-lg" style="color: red ;float: right"></i>
                                 </a>
                             </div>
                         @endif

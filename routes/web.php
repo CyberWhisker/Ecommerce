@@ -35,7 +35,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
     //Function start here
     Route::post('storeUser', [UsersController::class, 'storeUser'])->name('storeUser');
-    Route::post('updateRole', [UsersController::class, 'updateRole'])->name('updateRole');
+    Route::post('editUser', [UsersController::class, 'editUser'])->name('editUser');
+    Route::post('deleteUser', [UsersController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/profile', [StoreController::class, 'createOrUpdateStore'])->name('profile.createOrUpdateStore');
 });
 
