@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
     public function index() {
         $user = new User();
+        $user_role = Auth::user()->role_as;
         $getAllUsers = $user->getAllUsers()->paginate(8);
         return view('admin.users',[
-            'getAllUsers' => $getAllUsers,    
+            'getAllUsers' => $getAllUsers, 
+            'user_role' => $user_role   
         ]);
     }
     

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Users
+Inventory
 @endsection
 
 @section('navigation')
@@ -13,10 +13,10 @@ Users
         <div class="card-header" style="background-color: #8acbff">
             <div class="row">
                 <div class="col d-flex align-items-center">
-                    User List:
+                    Inventory List:
                 </div>
                 <div class="col">
-                    <button class="btn btn-success" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal">Add user</button>
+                    <button class="btn btn-success" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addUserModal">Add Inventory</button>
                 </div>
             </div>
         </div>
@@ -25,54 +25,41 @@ Users
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Price</th>
+                        <th>Survey Location</th>
+                        <th>Date</th>
                         <th style="width: 5%;">
                             <i class="bi bi-gear"></i>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($getAllUsers as $data)
+                    @forelse ($data_inventory as $data)
                         <tr>
                             <td>{{ $data->id }}</td>
-                            <td>{{ $data->first_name }}</td>
-                            <td>{{ $data->middle_name }}</td>
-                            <td>{{ $data->last_name }}</td>
-                            <td>{{ $data->email }}</td>
+                            <td>{{ $data->product_name }}</td>
+                            <td>{{ $data->quantity }}</td>
+                            <td>{{ $data->unit }}</td>
+                            <td>{{ $data->price }}</td>
+                            <td>{{ $data->survey_location}}</td>
+                            <td>{{$data->created_at}}</td>
                             <td>
-                                @if ($data->role_as == '1')
-                                    Admin
-                                @elseif($data->role_as == '2')
-                                    Seller
-                                @else 
-                                    Client
-                                @endif
-                            </td>
-                            <td>
-                                <div class="dropdown" style="border-radius: 10px;">
-                                    <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="mdi mdi-dots-horizontal"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item" href="#" id="setRole" data-id="{{$data->id}}">Set Role</a></li>
-                                    </ul>
-                                </div>                                
+                                <a href="">
+                                    <i class="bi bi-gear"></i>
+                                </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">
-                                <span class="text-danger" style="font-weight: bold">No record Found</span>
-                            </td>
+                            <td colspan="8" class="text-center"><span class="text-danger" style="font-weight: bold;">No record found!</span></td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
-            {{ $getAllUsers->links() }}
+            {{ $data_inventory->links() }}
         </div>
     </div>
 @endsection
@@ -142,9 +129,8 @@ Users
                     <input type="hidden" name="user_id" id="user_id" value="">
                     <select class="form-select" name="role_as">
                         <option selected>Select Role</option>
-                        <option value="0">Client</option>
-                        <option value="2">Seller</option>
                         <option value="1">Admin</option>
+                        <option value="0">Client</option>
                       </select>
                 </div>
                 <div class="modal-footer">
