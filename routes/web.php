@@ -38,6 +38,10 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('editUser', [UsersController::class, 'editUser'])->name('editUser');
     Route::post('deleteUser', [UsersController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/profile', [StoreController::class, 'createOrUpdateStore'])->name('profile.createOrUpdateStore');
+    
+    Route::post('storeInventory', [InventoryController::class, 'storeInventory'])->name('storeInventory');
+    Route::post('updateInventory', [InventoryController::class, 'updateInventory'])->name('updateInventory');
+    Route::post('deleteInventory', [InventoryController::class, 'deleteInventory'])->name('deleteInventory');
 });
 
 require __DIR__.'/auth.php';

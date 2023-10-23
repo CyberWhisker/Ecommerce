@@ -56,4 +56,7 @@ class User extends Authenticatable
     {
         return static::query();
     }
+    public function getUsers() {
+        return $this->get();
+    }
 }

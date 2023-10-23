@@ -28,6 +28,13 @@
         .dropdown-menu a:hover {
             background-color: rgba(217, 233, 206, 0.73)
         }
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid rgb(85, 83, 83);
+        }
+        .btn {
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body style="background-color: #e3e3e3;">

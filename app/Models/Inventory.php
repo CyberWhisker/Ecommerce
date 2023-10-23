@@ -11,7 +11,6 @@ class Inventory extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'category_id',
         'product_name',
         'unit',
         'survey_location',
@@ -21,5 +20,8 @@ class Inventory extends Model
     public function getAllInventory(): Builder 
     {
         return static::query();
+    }
+    public function getInventory() {
+        return $this->get();
     }
 }

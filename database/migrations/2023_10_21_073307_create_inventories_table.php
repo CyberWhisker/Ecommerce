@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('category_id')->nullable();
             $table->string('product_name');
-            $table->string('unit');
+            $table->float('unit');
             $table->string('survey_location');
             $table->bigInteger('quantity');
-            $table->bigInteger('price');
+            $table->float('price');
             $table->timestamps();
         });
     }

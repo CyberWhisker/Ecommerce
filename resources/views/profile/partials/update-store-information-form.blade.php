@@ -19,23 +19,23 @@
         
         <div>
             <x-input-label for="street" :value="__('Street Name')" />
-            <x-text-input id="street" name="street" type="text" class="mt-1 block w-full" :value="old('street', $store_address->street)" required autofocus autocomplete="street" />
+            <x-text-input id="street" name="street" type="text" class="mt-1 block w-full" :value="old('street', $store_address != null ? $store_address->street : '')" required autofocus autocomplete="street" />
             <x-input-error class="mt-2" :messages="$errors->get('street')" />
         </div>
         <div class="row">
             <div class="col">
                 <x-input-label for="barangay" :value="__('Barangay')" />
-                <x-text-input id="barangay" name="barangay" type="text" class="mt-1 block w-full" :value="old('barangay', $store_address->barangay)" required autofocus autocomplete="barangay" />
+                <x-text-input id="barangay" name="barangay" type="text" class="mt-1 block w-full" :value="old('barangay',$store_address != null ? $store_address->barangay : '')" required autofocus autocomplete="barangay" />
                 <x-input-error class="mt-2" :messages="$errors->get('barangay')" />
             </div>
             <div class="col">
                 <x-input-label for="city" :value="__('Municipality/City')" />
-                <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $store_address->city)" required autofocus autocomplete="city" />
+                <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $store_address != null ? $store_address->city : '')" required autofocus autocomplete="city" />
                 <x-input-error class="mt-2" :messages="$errors->get('city')" />
             </div>
             <div class="col">
                 <x-input-label for="province" :value="__('Province')" />
-                <x-text-input id="province" name="province" type="text" class="mt-1 block w-full" :value="old('province', $store_address->province)" required autofocus autocomplete="province" />
+                <x-text-input id="province" name="province" type="text" class="mt-1 block w-full" :value="old('province', $store_address != null ? $store_address->province : '')" required autofocus autocomplete="province" />
                 <x-input-error class="mt-2" :messages="$errors->get('province')" />
             </div>
         </div>
