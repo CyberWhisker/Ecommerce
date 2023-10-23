@@ -174,6 +174,14 @@ Users
                     <div class="col">
                         Email: <input type="text" class="form-control" name="email" required>
                     </div>
+                    <div class="col" style="margin-top: 10px;">
+                        Set Role: 
+                        <select class="form-control select2" name="role_as" id="role_as" style="width: 30%;">
+                            <option selected disabled>-Select Role-</option>
+                            <option value="0">Client</option>
+                            <option value="1">Admin</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -210,6 +218,10 @@ Users
 @section('script')
     <script>
         $(document).ready(function () {
+            // Select2 start here
+            $("#editUserModal #role_as").select2({
+                dropdownParent: $("#editUserModal")
+            });
             let getAllUsers = @json($getAllUsers).data;
             $('.dropdown #deleteBtn').on('click', function(e) {
                 e.preventDefault();

@@ -66,6 +66,11 @@ class UsersController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
             ]);
+            if ($request->role_as != null) {
+                User::where('id', $request->user_id)->update([
+                    'role_as' => $request->role_as
+                ]);
+            }
             return redirect()->back()->with('success', 'Successfully edited user');
         } catch (Exception $e) {
             // dd($e);
