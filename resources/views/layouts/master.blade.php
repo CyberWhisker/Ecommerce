@@ -43,6 +43,22 @@
         .modal {
             z-index: 9999;
         }
+        .form-select{
+            min-height: 45px;
+            border-radius: 10px;
+            border: 1px solid rgb(85, 83, 83);
+        }
+        #deleteBtn:hover {
+            background-color: red;
+            color: white;
+        }
+        #editBtn:hover {
+            background-color: yellow;
+        }
+        .form-select{
+            min-height: 45px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body style="background-color: #e3e3e3;">

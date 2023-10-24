@@ -19,6 +19,18 @@
           <span class="menu-title">Inventory</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('survey') }}">
+          <i class="mdi mdi-grid-large menu-icon"></i>
+          <span class="menu-title">Survey Products</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('setting') }}">
+          <i class="mdi mdi-grid-large menu-icon"></i>
+          <span class="menu-title">Setting</span>
+        </a>
+      </li>
     </ul>
 </nav>
 <!-- partial -->

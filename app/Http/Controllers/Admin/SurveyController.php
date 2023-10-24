@@ -3,87 +3,85 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Inventory;
+use App\Models\Survey;
 use App\Models\Unit;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
-class InventoryController extends Controller
+class SurveyController extends Controller
 {
-    public function index(){
-        $inventory = new Inventory();
-        $unit = new Unit();
+    public function index() {
         $user_role = Auth::user()->role_as;
-        $data_inventory = $inventory->getAllInventory()->paginate(15);
+        $survey = new Survey();
+        $unit = new Unit();
+        $data_survey = $survey->getAllSurvey()->paginate(15);
         $data_unit = $unit->getAllUnit();
-        return view('admin.inventory', [
-            'data_inventory' => $data_inventory,
+        return view('admin.survey',[
             'user_role' => $user_role,
+            'data_survey' => $data_survey,
             'data_unit' => $data_unit
         ]);
     }
-    public function storeInventory(Request $request) {
+    public function storeSurvey(Request $request) {
         $user_id = Auth::user()->id;
         $unit = $request->unit;
         $price = $request->price;
         try {
             $request->validate([
                 'product_name' => ['required'],
-                'quantity' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
                 'unit' => ['required'],
+                'survey_location' => ['required'],
             ]);
             $unit = number_format($unit,2);
             $price = number_format($price,2);
-            Inventory::create([
+            Survey::create([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
-                'quantity' => $request->quantity,
+                'survey_location' => $request->survey_location,
                 'unit' => $unit,
                 'price' => $price,
 
             ]);
-            return redirect()->back()->with('success', 'Successfully inserted to inventory');
+            return redirect()->back()->with('success', 'Successfully inserted to Survey');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    public function updateInventory(Request $request) {
+    public function updateSurvey(Request $request) {
         $user_id = Auth::user()->id;
-        $unit = $request->unit;
         $price = $request->price;
         try {
             $request->validate([
                 'product_name' => ['required'],
                 'quantity' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
-                'unit' => ['required'],
+                'unit_id' => ['required'],
+                'survey_location' => ['required']
             ]);
-            $unit = number_format($unit,2);
             $price = number_format($price,2);
-            Inventory::where('id', $request->id)->update([
+            Survey::where('id', $request->id)->update([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
                 'quantity' => $request->quantity,
-                'unit' => $unit,
+                'survey_location' => $request->survey_location,
+                'unit_id' => $request->unit_id,
                 'price' => $price,
 
             ]);
-            return redirect()->back()->with('success', 'Successfully updated to inventory');
+            return redirect()->back()->with('success', 'Successfully updated to Survey');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    public function deleteInventory(Request $request) {
+    public function deleteSurvey(Request $request) {
         try {
             $request->validate([
                 'id' => 'required',
             ]);
-            Inventory::where('id', $request->id)->delete();
-            return redirect()->back()->with('success', 'Successfully deleted from inventory');
+            Survey::where('id', $request->id)->delete();
+            return redirect()->back()->with('success', 'Successfully deleted from Survey');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

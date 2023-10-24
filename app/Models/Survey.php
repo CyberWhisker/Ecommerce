@@ -6,21 +6,19 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inventory extends Model
+class Survey extends Model
 {
-    use HasFactory;
     protected $fillable = [
         'user_id',
         'product_name',
         'unit',
-        'quantity',
         'price',
+        'survey_location',
     ];
-    public function getAllInventory(): Builder 
+    use HasFactory;
+    
+    public function getAllSurvey(): Builder 
     {
         return static::query();
-    }
-    public function getInventory() {
-        return $this->get();
     }
 }

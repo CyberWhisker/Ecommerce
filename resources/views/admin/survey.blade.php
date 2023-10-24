@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Inventory
+Survey
 @endsection
 <style>
 </style>
@@ -15,10 +15,10 @@ Inventory
         <div class="card-header" style="background-color: #8acbff">
             <div class="row">
                 <div class="col d-flex align-items-center">
-                    Inventory List:
+                    Survey List:
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add inventory</button>
+                    <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add Survey</button>
                 </div>
             </div>
         </div>
@@ -28,9 +28,9 @@ Inventory
                     <tr>
                         <th>ID</th>
                         <th>Product Name</th>
-                        <th>Quantity</th>
                         <th>Unit</th>
                         <th>Price</th>
+                        <th>Survey Location</th>
                         <th>Date</th>
                         <th style="width: 5%;">
                             <i class="bi bi-gear"></i>
@@ -38,13 +38,13 @@ Inventory
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($data_inventory as $data)
+                    @forelse ($data_survey as $data)
                         <tr>
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->product_name }}</td>
-                            <td>{{ $data->quantity }}</td>
                             <td>{{ $data->unit }}</td>
                             <td>{{ $data->price }}</td>
+                            <td>{{ $data->survey_location }}</td>
                             <td>{{ $data->updated_at->format('M-m-Y') }}</td>
                             <td>
                                 <div class="dropdown">
@@ -67,20 +67,20 @@ Inventory
                     @endforelse
                 </tbody>
             </table>
-            {{ $data_inventory->links() }}
+            {{ $data_survey->links() }}
         </div>
     </div>
 @endsection
-<!-- Modal for Adding Inventory -->
+<!-- Modal for Adding Survey -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addModalLabel">Add Inventory</h1>
+            <h1 class="modal-title fs-5" id="addModalLabel">Add Survey</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addForm" action="{{ route('storeInventory') }}" method="POST">
+                <form id="addForm" action="{{ route('storeSurvey') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col">
@@ -88,13 +88,10 @@ Inventory
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            Quantity: <input type="text" class="form-control" name="quantity" required>
-                        </div>
                         <div class="col" style="flex: 20%">
                             {{-- Unit: <input type="text" class="form-control" name="unit" required> --}}
                             Unit: 
-                            <select class="form-select" name="unit" id="unit">
+                            <select class="form-select" name="unit_id" id="unit">
                                 <option selcted>Select Measure Unit</option>
                                 @forelse ($data_unit as $data)
                                     <option value="{{$data->id}}">{{$data->unit}}</option>
@@ -107,6 +104,11 @@ Inventory
                             Price: <input type="text" class="form-control" name="price" required>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            Survey Location: <input type="text" class="form-control" name="survey_location" required>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -117,16 +119,16 @@ Inventory
     </div>
 </div>
 
-<!-- Modal for Editing User -->
+<!-- Modal for Editing Survey -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Add User</h1>
+            <h1 class="modal-title fs-5" id="editModalLabel">Add Survey</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editForm" action="{{ route('updateInventory') }}" method="POST">
+                <form id="editForm" action="{{ route('updateSurvey') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="id" value="">
                     <div class="row">
@@ -163,11 +165,11 @@ Inventory
                 <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('deleteInventory') }}" method="POST">
+            <form action="{{ route('deleteSurvey') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
-                    This user will be deleted!
+                    This Survey will be deleted!
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -181,7 +183,8 @@ Inventory
 @section('script')
     <script>
         $(document).ready(function () {
-            let getAllUsers = @json($data_inventory).data;
+            let data_survey = @json($data_survey).data;
+            let data_unit = @json($data_unit);
             // Select2 start here
             $('.dropdown #deleteBtn').on('click', function(e) {
                 e.preventDefault();
@@ -194,13 +197,17 @@ Inventory
                 $('#editModal').modal('show');
                 let id = $(this).data('id');
                 $('#editModal #id').val(id);
-                getAllUsers.forEach(element => {
+                data_survey.forEach(element => {
                     if (element.id == id) {
                         $('#editModal [name="product_name"]').val(element.product_name);
                         $('#editModal [name="quantity"]').val(element.quantity);
-                        $('#editModal [name="unit"]').val(element.unit);
                         $('#editModal [name="price"]').val(element.price);
                         $('#editModal [name="survey_location"]').val(element.survey_location);
+                    }
+                });
+                data_unit.forEach(element => {
+                    if (element.unit_id == id) {
+                        $('#editModal [name="unit"]').val(element.unit);
                     }
                 });
             })

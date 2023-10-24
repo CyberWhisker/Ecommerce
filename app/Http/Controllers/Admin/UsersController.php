@@ -55,15 +55,13 @@ class UsersController extends Controller
                 'last_name' => ['required', 'string', 'max:255'],
                 'middle_name' => ['required', 'string', 'max:255'],
                 'address' => ['required', 'string', 'max:255'],
-                'phone_number' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
+                'phone_number' => ['required', 'string', 'max:255']
             ]);
             User::where('id',$request->user_id)->update([
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
                 'last_name' => $request->last_name,
                 'address' => $request->address,
-                'email' => $request->email,
                 'phone_number' => $request->phone_number,
             ]);
             if ($request->role_as != null) {

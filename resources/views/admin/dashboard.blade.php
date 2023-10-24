@@ -47,7 +47,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col" style="border-right: 2px solid black; flex:30%">
-                        <h3>Best Seller Chart:</h3>
+                        <h3>Sale Chart:</h3>
                         <canvas id="barChart"></canvas>
                     </div>
                     <div class="col">
