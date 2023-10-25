@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SurveyController;
+use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\StoreController;
 
 /*
@@ -20,9 +22,7 @@ use App\Http\Controllers\StoreController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware('auth')->name('home');
+Route::get('/', [CustomerDashboardController::class, 'index'])->middleware('auth')->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -60,4 +60,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('deleteUnit', [SettingController::class, 'deleteUnit'])->name('deleteUnit');
 });
 
+Route::prefix('customer')->middleware(['auth',])->group(function () {
+    // Web links start here
+    Route::get('cart', [CartController::class, 'index'])->name('cart');
+
+
+    // Cart Function Start Here
+    Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');
+    Route::post('updateUnit', [CartController::class, 'updateUnit'])->name('updateUnit');
+    Route::post('deleteUnit', [CartController::class, 'deleteUnit'])->name('deleteUnit');
+});
 require __DIR__.'/auth.php';

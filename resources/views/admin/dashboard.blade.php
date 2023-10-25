@@ -57,13 +57,15 @@
                                 <tr>
                                     <td>Product</td>
                                     <td>Price</td>
+                                    <td>Address</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($data_inventory as $data)
+                                @forelse ($data_survey as $data)
                                     <tr>
                                         <td>{{$data->product_name}}</td>
-                                        <td>{{$data->unit}}</td>
+                                        <td>{{$data->unit->unit}}</td>
+                                        <td>{{$data->survey_location}}</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -72,7 +74,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{$data_inventory->links()}}
+                        {{$data_survey->links()}}
                     </div>
                 </div>
             </div>
