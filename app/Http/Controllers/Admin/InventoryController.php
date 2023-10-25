@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\View;
 class InventoryController extends Controller
 {
     public function index(){
-        $inventory = new Inventory();
         $unit = new Unit();
         $user_role = Auth::user()->role_as;
-        $data_inventory = $inventory->getAllInventory()->paginate(15);
+        $data_inventory = Inventory::with('unit')->get();
         $data_unit = $unit->getAllUnit();
         return view('admin.inventory', [
             'data_inventory' => $data_inventory,
@@ -27,22 +26,20 @@ class InventoryController extends Controller
     }
     public function storeInventory(Request $request) {
         $user_id = Auth::user()->id;
-        $unit = $request->unit;
         $price = $request->price;
         try {
             $request->validate([
                 'product_name' => ['required'],
                 'quantity' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
-                'unit' => ['required'],
+                'unit_id' => ['required'],
             ]);
-            $unit = number_format($unit,2);
             $price = number_format($price,2);
             Inventory::create([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
                 'quantity' => $request->quantity,
-                'unit' => $unit,
+                'unit_id' => $request->unit_id,
                 'price' => $price,
 
             ]);
@@ -53,22 +50,20 @@ class InventoryController extends Controller
     }
     public function updateInventory(Request $request) {
         $user_id = Auth::user()->id;
-        $unit = $request->unit;
         $price = $request->price;
         try {
             $request->validate([
                 'product_name' => ['required'],
                 'quantity' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
-                'unit' => ['required'],
+                'unit_id' => ['required'],
             ]);
-            $unit = number_format($unit,2);
             $price = number_format($price,2);
             Inventory::where('id', $request->id)->update([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
                 'quantity' => $request->quantity,
-                'unit' => $unit,
+                'unit_id' => $request->unit_id,
                 'price' => $price,
 
             ]);

@@ -12,32 +12,35 @@ Setting
     }
 </style>
 @section('content')
-<div class="row" style="height: ">
-    <div class="col">
-        <div class="card">
-            <div class="card-header" style="background-color: #8acbff;height: 50px;">
-                <div style="margin-top: 5px;">Setting</div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <button class="btn btn-outline-warning" style="width: 100%">UNIT</button>
+    <div class="row" style="height: ">
+        <div class="col">
+            <div class="card">
+                <div class="card-header" style="background-color: #8acbff;height: 50px;">
+                    <div style="margin-top: 5px;">Setting</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-warning" style="width: 100%">UNIT</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col" style="flex: 50%">
-        <div class="card">
-            <div class="card-header" style="background-color: #8acbff;height: 50px;">
-                <div style="margin-top: 5px;"><span id="table_title">Choose Setting:</span></div>
-            </div>
-            <div class="card-body">
-                @include('admin.settingFolder.unit-table')
+        <div class="col" style="flex: 50%">
+            <div class="card">
+                <div class="card-header" style="background-color: #8acbff;height: 50px;">
+                    <div style="margin-top: 5px;"><span id="table_title">Choose Setting:</span></div>
+                </div>
+                <div class="card-body">
+                    @include('admin.settingFolder.unit-table')
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    @include('plugin.table-plug')
+
 @endsection
 
 <!-- Modal for Adding Inventory -->

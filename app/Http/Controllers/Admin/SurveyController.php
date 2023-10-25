@@ -25,22 +25,20 @@ class SurveyController extends Controller
     }
     public function storeSurvey(Request $request) {
         $user_id = Auth::user()->id;
-        $unit = $request->unit;
         $price = $request->price;
         try {
             $request->validate([
                 'product_name' => ['required'],
                 'price' => ['required', 'numeric'],
-                'unit' => ['required'],
+                'unit_id' => ['required'],
                 'survey_location' => ['required'],
             ]);
-            $unit = number_format($unit,2);
             $price = number_format($price,2);
             Survey::create([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
                 'survey_location' => $request->survey_location,
-                'unit' => $unit,
+                'unit_id' => $request->unit_id,
                 'price' => $price,
 
             ]);
@@ -55,7 +53,6 @@ class SurveyController extends Controller
         try {
             $request->validate([
                 'product_name' => ['required'],
-                'quantity' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
                 'unit_id' => ['required'],
                 'survey_location' => ['required']
@@ -64,7 +61,6 @@ class SurveyController extends Controller
             Survey::where('id', $request->id)->update([
                 'user_id' => $user_id,
                 'product_name' => $request->product_name,
-                'quantity' => $request->quantity,
                 'survey_location' => $request->survey_location,
                 'unit_id' => $request->unit_id,
                 'price' => $price,

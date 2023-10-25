@@ -74,6 +74,9 @@ Users
             {{ $getAllUsers->links() }}
         </div>
     </div>
+
+    @include('plugin.table-plug')
+    
 @endsection
 <!-- Modal for Adding User -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">

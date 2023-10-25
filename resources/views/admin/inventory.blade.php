@@ -43,7 +43,7 @@ Inventory
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->product_name }}</td>
                             <td>{{ $data->quantity }}</td>
-                            <td>{{ $data->unit }}</td>
+                            <td>{{ $data->unit->unit }}</td>
                             <td>{{ $data->price }}</td>
                             <td>{{ $data->updated_at->format('M-m-Y') }}</td>
                             <td>
@@ -67,9 +67,12 @@ Inventory
                     @endforelse
                 </tbody>
             </table>
-            {{ $data_inventory->links() }}
+            {{-- {{ $data_inventory->links() }} --}}
         </div>
     </div>
+
+    @include('plugin.table-plug')
+    
 @endsection
 <!-- Modal for Adding Inventory -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -94,7 +97,7 @@ Inventory
                         <div class="col" style="flex: 20%">
                             {{-- Unit: <input type="text" class="form-control" name="unit" required> --}}
                             Unit: 
-                            <select class="form-select" name="unit" id="unit">
+                            <select class="form-select" name="unit_id" id="unit">
                                 <option selcted>Select Measure Unit</option>
                                 @forelse ($data_unit as $data)
                                     <option value="{{$data->id}}">{{$data->unit}}</option>
@@ -117,12 +120,12 @@ Inventory
     </div>
 </div>
 
-<!-- Modal for Editing User -->
+<!-- Modal for Editing Inventory -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Add User</h1>
+            <h1 class="modal-title fs-5" id="editModalLabel">Edit Inventory</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -139,7 +142,10 @@ Inventory
                             Quantity: <input type="text" class="form-control" name="quantity" required>
                         </div>
                         <div class="col">
-                            Unit: <input type="text" class="form-control" name="unit" required>
+                            Unit: 
+                            <select class="form-select" name="unit_id" id="unit">
+
+                            </select>
                         </div>
                         <div class="col">
                             Price: <input type="text" class="form-control" name="price" required>
@@ -181,7 +187,8 @@ Inventory
 @section('script')
     <script>
         $(document).ready(function () {
-            let getAllUsers = @json($data_inventory).data;
+            let data_inventory = @json($data_inventory);
+            let data_unit = @json($data_unit);
             // Select2 start here
             $('.dropdown #deleteBtn').on('click', function(e) {
                 e.preventDefault();
@@ -193,16 +200,21 @@ Inventory
                 e.preventDefault();
                 $('#editModal').modal('show');
                 let id = $(this).data('id');
+                let unit_id;
                 $('#editModal #id').val(id);
-                getAllUsers.forEach(element => {
+                data_inventory.forEach(element => {
                     if (element.id == id) {
                         $('#editModal [name="product_name"]').val(element.product_name);
                         $('#editModal [name="quantity"]').val(element.quantity);
-                        $('#editModal [name="unit"]').val(element.unit);
                         $('#editModal [name="price"]').val(element.price);
                         $('#editModal [name="survey_location"]').val(element.survey_location);
+                        unit_id = element.unit.id;
                     }
                 });
+                data_unit.forEach(element => {
+                    $('#editModal [name="unit_id"]').append(`<option value="${element.id}"${element.id == unit_id ? 'selected' : ''}>${element.unit}</option>`);
+                });
+
             })
         });
         $('#editBtn').click(() => {

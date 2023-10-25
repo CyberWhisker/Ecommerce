@@ -11,7 +11,7 @@ class Survey extends Model
     protected $fillable = [
         'user_id',
         'product_name',
-        'unit',
+        'unit_id',
         'price',
         'survey_location',
     ];
@@ -20,5 +20,10 @@ class Survey extends Model
     public function getAllSurvey(): Builder 
     {
         return static::query();
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 }

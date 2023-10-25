@@ -18,7 +18,7 @@ Survey
                     Survey List:
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add Survey</button>
+                    <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add survey</button>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@ Survey
                         <tr>
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->product_name }}</td>
-                            <td>{{ $data->unit }}</td>
+                            <td>{{ $data->unit->unit }}</td>
                             <td>{{ $data->price }}</td>
                             <td>{{ $data->survey_location }}</td>
                             <td>{{ $data->updated_at->format('M-m-Y') }}</td>
@@ -67,9 +67,12 @@ Survey
                     @endforelse
                 </tbody>
             </table>
-            {{ $data_survey->links() }}
+            {{-- {{ $data_survey->links() }} --}}
         </div>
     </div>
+
+    @include('plugin.table-plug')
+    
 @endsection
 <!-- Modal for Adding Survey -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -106,7 +109,7 @@ Survey
                     </div>
                     <div class="row">
                         <div class="col">
-                            Survey Location: <input type="text" class="form-control" name="survey_location" required>
+                            Survey Location <input type="text" class="form-control" name="survey_location" required>
                         </div>
                     </div>
                 </form>
@@ -119,12 +122,12 @@ Survey
     </div>
 </div>
 
-<!-- Modal for Editing Survey -->
+<!-- Modal for Editing User -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Add Survey</h1>
+            <h1 class="modal-title fs-5" id="editModalLabel">Add User</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -138,13 +141,18 @@ Survey
                     </div>
                     <div class="row">
                         <div class="col">
-                            Quantity: <input type="text" class="form-control" name="quantity" required>
-                        </div>
-                        <div class="col">
-                            Unit: <input type="text" class="form-control" name="unit" required>
+                            Unit: 
+                            <select class="form-select" name="unit_id" id="unit">
+
+                            </select>
                         </div>
                         <div class="col">
                             Price: <input type="text" class="form-control" name="price" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Survey Location: <input type="text" class="form-control" name="survey_location" required>
                         </div>
                     </div>
                 </form>
@@ -169,7 +177,7 @@ Survey
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
-                    This Survey will be deleted!
+                    This user will be deleted!
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -196,20 +204,21 @@ Survey
                 e.preventDefault();
                 $('#editModal').modal('show');
                 let id = $(this).data('id');
+                let unit_id;
                 $('#editModal #id').val(id);
                 data_survey.forEach(element => {
                     if (element.id == id) {
                         $('#editModal [name="product_name"]').val(element.product_name);
-                        $('#editModal [name="quantity"]').val(element.quantity);
+                        $('#editModal [name="unit"]').val(element.unit.unit);
                         $('#editModal [name="price"]').val(element.price);
                         $('#editModal [name="survey_location"]').val(element.survey_location);
+                        unit_id = element.unit.id;
                     }
                 });
                 data_unit.forEach(element => {
-                    if (element.unit_id == id) {
-                        $('#editModal [name="unit"]').val(element.unit);
-                    }
+                    $('#editModal [name="unit_id"]').append(`<option value="${element.id}"${element.id == unit_id ? 'selected' : ''}>${element.unit}</option>`);
                 });
+
             })
         });
         $('#editBtn').click(() => {

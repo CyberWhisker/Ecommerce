@@ -27,7 +27,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('setting') }}">
-          <i class="mdi mdi-grid-large menu-icon"></i>
+          <i class="mdi mdi-settings menu-icon"></i>
           <span class="menu-title">Setting</span>
         </a>
       </li>
