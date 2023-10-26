@@ -77,7 +77,7 @@ class SurveyController extends Controller
                 'id' => 'required',
             ]);
             Survey::where('id', $request->id)->delete();
-            return redirect()->back()->with('success', 'Successfully deleted from Survey');
+            return redirect()->back()->with('error', 'Successfully deleted from Survey');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

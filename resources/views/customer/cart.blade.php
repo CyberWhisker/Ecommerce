@@ -43,9 +43,9 @@
                                         <p>Address: {{$data->user->address}}</p>
                                         <p>Address: {{$data->user->phone_number}}</p>
                                     </div>
-                                    <div class="col" style="border-left: 2px solid rgb(143, 139, 139)">
+                                    <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">
                                         <button class="btn btn-success" style="margin-bottom: 10px; width:100%">Buy</button>
-                                        <button class="btn btn-danger" style="width: 100%;">Delete</button>
+                                        <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -71,6 +71,29 @@
     </x-app-layout>
 @endsection
 
+<!-- Modal for Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('deleteCart') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
+                    This product will be removed!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section('script')
     <script>
         $(document).ready(function () {
@@ -87,6 +110,12 @@
                     $('#addCartModal #quantity').append(`<option value="${num}">${num}</option>`);
                 }
             });
+            $('#btn-group #deleteBtn').on('click', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $('#deleteModal').modal('show');
+                $('#deleteModal #id').val(id);
+            })
         });
         
     </script>

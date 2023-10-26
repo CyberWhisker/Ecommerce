@@ -57,6 +57,7 @@
                                 <tr>
                                     <td>Product</td>
                                     <td>Price</td>
+                                    <td>Unit</td>
                                     <td>Address</td>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                 @forelse ($data_survey as $data)
                                     <tr>
                                         <td>{{$data->product_name}}</td>
+                                        <td>{{$data->price}}</td>
                                         <td>{{$data->unit->unit}}</td>
                                         <td>{{$data->survey_location}}</td>
                                     </tr>

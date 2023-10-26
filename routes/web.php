@@ -64,6 +64,8 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
     // Web links start here
     Route::get('cart', [CartController::class, 'index'])->name('cart');
 
+    // Cart Function Start here
+    Route::post('deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
 
     // Cart Function Start Here
     Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');

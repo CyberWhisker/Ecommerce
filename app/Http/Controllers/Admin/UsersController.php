@@ -92,7 +92,7 @@ class UsersController extends Controller
                 ->update([
                     'role_as' => $request->role_as
                 ]);
-            return redirect()->back()->with('success', 'Successfully updated role');
+            return redirect()->back()->with('error', 'Successfully updated role');
         } catch (\Throwable $th) {
             //throw $th;
         }

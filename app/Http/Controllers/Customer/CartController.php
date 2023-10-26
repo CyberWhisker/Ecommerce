@@ -35,37 +35,13 @@ class CartController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    public function updateSurvey(Request $request) {
-        $user_id = Auth::user()->id;
-        $price = $request->price;
-        try {
-            $request->validate([
-                'product_name' => ['required'],
-                'price' => ['required', 'numeric'],
-                'unit_id' => ['required'],
-                'survey_location' => ['required']
-            ]);
-            $price = number_format($price,2);
-            Survey::where('id', $request->id)->update([
-                'user_id' => $user_id,
-                'product_name' => $request->product_name,
-                'survey_location' => $request->survey_location,
-                'unit_id' => $request->unit_id,
-                'price' => $price,
-
-            ]);
-            return redirect()->back()->with('success', 'Successfully updated to Survey');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
-    }
-    public function deleteSurvey(Request $request) {
+    public function deleteCart(Request $request) {
         try {
             $request->validate([
                 'id' => 'required',
             ]);
-            Survey::where('id', $request->id)->delete();
-            return redirect()->back()->with('success', 'Successfully deleted from Survey');
+            Cart::where('id', $request->id)->delete();
+            return redirect()->back()->with('error', 'Successfully deleted from Survey');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

@@ -78,7 +78,7 @@ class InventoryController extends Controller
                 'id' => 'required',
             ]);
             Inventory::where('id', $request->id)->delete();
-            return redirect()->back()->with('success', 'Successfully deleted from inventory');
+            return redirect()->back()->with('error', 'Successfully deleted from inventory');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
