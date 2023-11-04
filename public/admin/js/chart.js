@@ -1,4 +1,8 @@
 $(function() {
+  $('#searchBar').addClass('d-none');
+  $('#search').addClass('d-none');
+  $('#searchBtn').addClass('d-none');
+
   /* ChartJS
    * -------
    * Data and config for chartjs

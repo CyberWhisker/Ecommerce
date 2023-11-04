@@ -26,4 +26,9 @@ class Survey extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
+
+    public function searchSurvey($search_input) {
+        return $this->where('product_name', 'like', '%' .$search_input. '%')
+            ->get();
+    }
 }

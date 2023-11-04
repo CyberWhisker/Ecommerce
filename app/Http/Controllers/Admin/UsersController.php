@@ -97,4 +97,15 @@ class UsersController extends Controller
             //throw $th;
         }
     }
+
+    public function searchUser(Request $request) {
+        $user = new User();
+        $user_role = Auth::user()->role_as;
+        $search_input = $request->searchInput;
+        $getAllUsers = $user->searchUser($search_input);
+        return view('admin.users',[
+            'getAllUsers' => $getAllUsers, 
+            'user_role' => $user_role   
+        ]);
+    }
 }

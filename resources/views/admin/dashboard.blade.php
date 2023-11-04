@@ -23,7 +23,7 @@
                 <h3 class="text-white">Total Users</h3>
             </div>
             <div class="card-body text-center">
-                <h1>{{$user_count}}</h1>
+                <h1 class="text-white">{{$user_count}}</h1>
             </div>
         </div>
         <div class="card col bg-warning">
@@ -31,14 +31,29 @@
                 <h3 class="text-white">Orders</h3>
             </div>
             <div class="card-body text-center">
+                <div class="row">
+                    <div class="col" style="border-right: 2px solid white">
+                        <span>Total</span><br>
+                        <span>{{$data_order->count()}}</span>
+                    </div>
+                    <div class="col" style="border-right: 2px solid white">
+                        <span>Confirmed</span><br>
+                        <span>{{$data_order->where('order_status', 'Confirmed')->count()}}</span>
+                    </div>
+
+                    <div class="col">
+                        <span>Pending</span><br>
+                        <span>{{$data_order->where('order_status', 'Pending')->count()}}</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card col bg-success">
             <div class="card-header">
-                <h3 class="text-white">Revenue</h3>
+                <h3 class="text-white">Total Sales</h3>
             </div>
             <div class="card-body text-center">
-                <h1>300</h1>
+                <h1 class="text-white">₱ {{number_format($data_order->where('order_status', 'Confirmed')->sum('price'), 2)}}</h1>
             </div>
         </div>
     </div>

@@ -16,12 +16,12 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Cart') }}
+                {{ __('Order') }}
             </h2>
         </x-slot>
         
         <div class="container" style="padding: 20px;">
-            @forelse ($data_cart as $data)
+            @forelse ($data_order as $data)
                 <div class="row">
                     <div class="col">
                         <div class="card">
@@ -44,11 +44,15 @@
                                         <p>Contact: {{$data->user->phone_number}}</p>
                                     </div>
                                     <div class="col" style="flex: 30%;">
-                                        <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱ {{$data->quantity * $data->inventory->price}}</span>
+                                        <div style="text-align:right;">
+                                            <input type="text" class="{{$data->order_status == 'Pending' ? 'bg-warning' : ($data->order_status == 'Confirmed' ? 'bg-success' : 'bg-danger')}}" value="{{$data->order_status}}" style="width: 30%; float: right;" disabled>
+                                            <br>
+                                            <br>
+                                            <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱ {{$data->price}}</span>
+                                        </div>
                                     </div>
                                     <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">
-                                        <button class="btn {{$data->inventory->quantity <= 0 ? 'btn-outline-secondary' : 'btn-success'}}" style="margin-bottom: 10px; width:100%" id="orderBtn" data-id="{{$data->id}}"  {{$data->inventory->quantity <= 0 ? 'disabled' : ''}}>Buy</button>
-                                        <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}">Remove</button>
+                                        <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}" {{$data->order_status == 'Confirmed' ? 'disabled': ''}}>Cancel Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +68,7 @@
                             <span>Category</span>
                         </div>
                         <div class="card-body text-center">
-                            <span class="text-danger">Cart is empty</span>
+                            <span class="text-danger">Order is empty</span>
                         </div>
                     </div>
                 </div>
@@ -82,7 +86,7 @@
                 <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('deleteCart') }}" method="POST">
+            <form action="{{ route('deleteOrder') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
@@ -96,41 +100,11 @@
         </div>
     </div>
 </div>
-<!-- Modal for buy -->
-<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('storeOrder') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="cart_id" id="cart_id" value="">
-                    <input type="hidden" name="user_id" id="user_id" value="">
-                    <input type="hidden" name="inventory_id" id="inventory_id" value="">
-                    <input type="hidden" name="quantity"value="">
-                    <span>Name:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
-                    <span>Quantity:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="quantity" disabled>
-                    <span>Address:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Proceed</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 @section('script')
     <script>
         $(document).ready(function () {
-            let data_cart = @json($data_cart);
+            let data_order = @json($data_order);
             $('#btn-group #deleteBtn').on('click', function(e) {
                 e.preventDefault();
                 let id = $(this).data('id');
@@ -140,7 +114,7 @@
             $('#btn-group #orderBtn').click(function (e) { 
                 e.preventDefault();
                 let id = $(this).data('id');
-                data_cart.forEach(data => {
+                data_order.forEach(data => {
                     if (data.id == id) {
                         $('#orderModal #cart_id').val(data.id);
                         $('#orderModal #user_id').val(data.user.id);

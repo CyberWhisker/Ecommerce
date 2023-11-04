@@ -11,6 +11,10 @@ Survey
 @endsection
 
 @section('content')
+    <form id="searchForm" action="{{ route('searchSurvey') }}" method="POST">
+        @csrf
+        <input type="hidden" value="" id="searchInput" name="searchInput">
+    </form>
     <div class="card" style="border-radius: 10px;">
         <div class="card-header" style="background-color: #8acbff">
             <div class="row">
@@ -219,7 +223,16 @@ Survey
                     $('#editModal [name="unit_id"]').append(`<option value="${element.id}"${element.id == unit_id ? 'selected' : ''}>${element.unit}</option>`);
                 });
 
-            })
+            });
+            $('#searchBar').keyup(function (e) { 
+                e.preventDefault();
+                let searchInput = $(this).val();
+                $('#searchInput').val(searchInput);
+            });
+        });
+        $('#searchBtn').click(function (e) { 
+            e.preventDefault();
+            $('#searchForm').submit();
         });
         $('#editBtn').click(() => {
             $('#editForm').submit();

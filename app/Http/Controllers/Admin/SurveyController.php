@@ -82,4 +82,19 @@ class SurveyController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function searchSurvey(Request $request) {
+        $unit = new Unit();
+        $survey = new Survey();
+        $user_role = Auth::user()->role_as;
+        $search_input = $request->searchInput;
+        $data_survey = $survey->searchSurvey($search_input);
+        $data_unit = $unit->getAllUnit();
+        return view('admin.survey',[
+            'data_survey' => $data_survey, 
+            'user_role' => $user_role,
+            'data_unit' => $data_unit
+        ]);
+
+    }
 }

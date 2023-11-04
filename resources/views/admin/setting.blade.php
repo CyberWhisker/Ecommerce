@@ -143,7 +143,10 @@ Setting
                         $('#editModal [name="unit"]').val(element.unit);
                     }
                 });
-            })
+            });
+        $('#searchBar').addClass('d-none');
+        $('#search').addClass('d-none');
+        $('#searchBtn').addClass('d-none');
         });
         $('#editBtn').click(() => {
             $('#editForm').submit();

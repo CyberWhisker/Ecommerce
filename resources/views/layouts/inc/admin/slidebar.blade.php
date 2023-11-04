@@ -20,13 +20,19 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.order') }}">
+          <i class="mdi mdi-grid-large menu-icon"></i>
+          <span class="menu-title">Order</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('survey') }}">
           <i class="mdi mdi-grid-large menu-icon"></i>
           <span class="menu-title">Survey Products</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('survey') }}">
+        <a class="nav-link" href="{{ route('calendar') }}">
           <i class="mdi mdi-grid-large menu-icon"></i>
           <span class="menu-title">Set Visit</span>
         </a>

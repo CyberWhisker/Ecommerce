@@ -16,6 +16,10 @@ class Inventory extends Model
         'quantity',
         'price',
     ];
+    public function fetchInventoryById($inventory_id) {
+        return $this->where('id', $inventory_id)
+            ->first();
+    }
     public function getAllInventory(): Builder 
     {
         return static::query();
@@ -28,6 +32,9 @@ class Inventory extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
-    
+    public function searchInventory($search_input) {
+        return $this->where('product_name', 'like', '%' .$search_input. '%')
+            ->get();
+    }
     
 }

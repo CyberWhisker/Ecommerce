@@ -83,4 +83,17 @@ class InventoryController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+    public function searchInventory(Request $request) {
+        $unit = new Unit();
+        $inventory = new Inventory();
+        $user_role = Auth::user()->role_as;
+        $search_input = $request->searchInput;
+        $data_inventory = $inventory->searchInventory($search_input);
+        $data_unit = $unit->getAllUnit();
+        return view('admin.inventory',[
+            'data_inventory' => $data_inventory, 
+            'user_role' => $user_role,
+            'data_unit' => $data_unit
+        ]);
+    }
 }
