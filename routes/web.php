@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     // Scheduler Function Start here
     Route::post('storeCalendar', [CalendarController::class, 'storeCalendar'])->name('storeCalendar');
+    Route::post('deleteCalendar', [CalendarController::class, 'deleteCalendar'])->name('deleteCalendar');
 
 });
 

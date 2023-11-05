@@ -14,9 +14,14 @@
     <div class="card">
       <div class="card-header">
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add Event</button>
+      <button class="btn btn-danger" id="removeEventToggle">Remove Event</button>
+      <button class="btn btn-warning" id="return" style="height: 40px"><i class="bi bi-arrow-return-left"></i></button>
       </div>
       <div class="card-body">
         <div id='calendar'></div>
+        <div id="calendarTable" style="display: none">
+          @include('admin.dateFolder.removeDate')
+        </div>
       </div>
     </div>
   </div>
@@ -81,6 +86,22 @@
         timeFormat: 'hh:mm:ss', // Optional, set the time format
         showTime: true,        // Optional, show the time
       });
+    });
+    $('#removeEventToggle').click(function (e) { 
+      e.preventDefault();
+      $('#calendar').hide();
+      $('#calendarTable').show();
+    });
+    $('#return').click(function (e) { 
+      e.preventDefault();
+      $('#calendar').toggle();
+      $('#calendarTable').toggle();
+    });
+    $('#deleteBtn').click(function (e) { 
+      e.preventDefault();
+      let id = $(this).data('id');
+      $('#id').val(id);
+      $('#deleteForm').submit();
     });
   </script>
 @endsection

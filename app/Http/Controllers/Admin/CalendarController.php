@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calendar;
-use App\Models\Scheduler;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +27,8 @@ class CalendarController extends Controller
         }
         return view('admin.calendar',[
             'user_role' => $user_role,
-            'events' => $events
+            'events' => $events,
+            'data_calendar' => $calendar
         ]);
     }
     public function storeCalendar(Request $request) {
@@ -46,6 +46,18 @@ class CalendarController extends Controller
                 'end_date' => $end_date,
             ]);
             return redirect()->back()->with('success', 'Successfully inserted data');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function deleteCalendar(Request $request) {
+        try {
+            $request->validate([
+                'id' => ['required']
+            ]);
+            Calendar::where('id', $request->id)->delete();
+            return redirect()->back()->with('success', 'Successfully Deleted');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

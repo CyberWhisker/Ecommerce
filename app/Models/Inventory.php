@@ -15,6 +15,7 @@ class Inventory extends Model
         'unit_id',
         'quantity',
         'price',
+        'image',
     ];
     public function fetchInventoryById($inventory_id) {
         return $this->where('id', $inventory_id)

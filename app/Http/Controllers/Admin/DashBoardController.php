@@ -7,12 +7,11 @@ use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\Survey;
 use App\Models\User;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashBoardController extends Controller
 {
-    public function index(Request $request) {
+    public function index() {
         $user = new User();
         $inventory = new Inventory();
         $survey = new Survey();

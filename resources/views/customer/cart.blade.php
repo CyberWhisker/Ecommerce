@@ -22,7 +22,7 @@
         
         <div class="container" style="padding: 20px;">
             @forelse ($data_cart as $data)
-                <div class="row">
+                <div class="row" style="margin-bottom: 10px">
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
@@ -30,20 +30,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col">
-                                        @if ($data->image != null)
-                                        
+                                    <div class="col" style="flex: 5%;">
+                                        @if ($data->inventory->image != null)
+                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 100%;">
                                         @else 
                                             <img src="{{ asset('images/no-image.png')}}" alt="No Image" style="height: 100px; width:100px;">
                                         @endif
                                     </div>
-                                    <div class="col" style="flex: 30%; border-left: 2px solid rgb(143, 139, 139)">
+                                    <div class="col" style="flex: 10%; border-left: 2px solid rgb(143, 139, 139)">
                                         <p>{{$data->inventory->product_name}}</p>
                                         <p>Quantity: {{$data->quantity}}</p>
                                         <p>Address: {{$data->user->address}}</p>
                                         <p>Contact: {{$data->user->phone_number}}</p>
                                     </div>
-                                    <div class="col" style="flex: 30%;">
+                                    <div class="col text-center" style="flex: 30%;">
+                                        @if ($data->inventory->quantity <= 0)
+                                            <span class="text-danger" style="font-weight:bold; font-size: 40px;">Out of Stock</span>
+                                        @endif
+                                    </div>
+                                    <div class="col" style="flex: 10%;">
                                         <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱ {{$data->quantity * $data->inventory->price}}</span>
                                     </div>
                                     <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">

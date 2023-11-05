@@ -44,7 +44,7 @@
                                     <div class="card">
                                         <div class="card-body" style="height: 200px;">
                                             @if ($data->image != null)
-                                            
+                                                <img src="{{ asset('storage/'.$data->image)}}" alt="Image" style="width: 100%; height: 100%;">
                                             @else 
                                                 <img src="{{ asset('images/no-image.png')}}" alt="No Image">
                                             @endif

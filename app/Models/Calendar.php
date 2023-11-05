@@ -13,4 +13,8 @@ class Calendar extends Model
         'start_date',
         'end_date'
     ];
+
+    public function getCalendar() {
+        return $this->get();
+    }
 }

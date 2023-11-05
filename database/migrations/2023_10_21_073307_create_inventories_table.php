@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('unit_id');
             $table->bigInteger('quantity');
             $table->float('price');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

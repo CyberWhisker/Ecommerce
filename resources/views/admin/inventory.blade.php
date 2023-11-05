@@ -83,11 +83,11 @@ Inventory
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addModalLabel">Add Inventory</h1>
+                <h1 class="modal-title fs-5" id="addModalLabel">Add Inventory</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addForm" action="{{ route('storeInventory') }}" method="POST">
+                <form id="addForm" action="{{ route('storeInventory') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col">
@@ -114,6 +114,12 @@ Inventory
                             Price: <input type="text" class="form-control" name="price" required>
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            Image: <input type="file" class="form-control" name="image" id="image">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -133,7 +139,7 @@ Inventory
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editForm" action="{{ route('updateInventory') }}" method="POST">
+                <form id="editForm" action="{{ route('updateInventory') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="id" value="">
                     <div class="row">
@@ -153,6 +159,11 @@ Inventory
                         </div>
                         <div class="col">
                             Price: <input type="text" class="form-control" name="price" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Image: <input type="file" class="form-control" name="image" id="image">
                         </div>
                     </div>
                 </form>

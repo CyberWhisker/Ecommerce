@@ -50,6 +50,8 @@ Users
                             <td>
                                 @if ($data->role_as == '1')
                                     Admin
+                                @elseif ($data->role_as == '2')
+                                    LGU
                                 @else 
                                     Customer
                                 @endif
@@ -124,6 +126,15 @@ Users
                             Password: <input type="text" class="form-control" name="password" required>
                         </div>
                     </div>
+                    <div class="col" style="margin-top: 10px;">
+                        Set Role: 
+                        <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
+                            <option selected disabled>-Select Role-</option>
+                            <option value="0">Customer</option>
+                            <option value="1">Admin</option>
+                            <option value="2">LGU</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -175,6 +186,7 @@ Users
                             <option selected disabled>-Select Role-</option>
                             <option value="0">Customer</option>
                             <option value="1">Admin</option>
+                            <option value="2">LGU</option>
                         </select>
                     </div>
                 </form>

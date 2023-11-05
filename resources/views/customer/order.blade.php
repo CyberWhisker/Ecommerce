@@ -31,8 +31,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        @if ($data->image != null)
-                                        
+                                        @if ($data->inventory->image != null)
+                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 100%;">
                                         @else 
                                             <img src="{{ asset('images/no-image.png')}}" alt="No Image" style="height: 100px; width:100px;">
                                         @endif
