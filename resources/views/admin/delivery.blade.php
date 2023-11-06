@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Order
+Delivery
 @endsection
 
 @section('navigation')
@@ -18,7 +18,7 @@ Order
         <div class="card-header" style="background-color: #8acbff">
             <div class="row">
                 <div class="col d-flex align-items-center">
-                    Order List:
+                    Delivery List:
                 </div>
             </div>
         </div>
@@ -28,32 +28,44 @@ Order
                     <tr>
                         <th>ID</th>
                         <th>Customer</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
                         <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Status</th>
+                        <th>Address</th>
+                        <th>Process</th>
+                        <th>Delivery</th>
+                        <th>Recieved</th>
                         <th style="width: 5%;">
                             <i class="bi bi-gear"></i>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($data_order as $data)
+                    @forelse ($data_order_status as $data)
                         <tr>
                             <td>{{ $data->id }}</td>
-                            <td>{{ $data->user->first_name }} {{ $data->user->last_name }}</td>
-                            <td>{{ $data->user->address }}</td>
-                            <td>{{ $data->user->phone_number }}</td>
-                            <td>{{ $data->inventory->product_name }}</td>
-                            <td>{{ $data->quantity }} {{ $data->inventory->unit->unit }}</td>
+                            <td style="width: 15%">{{ $data->order->user->first_name }} {{ $data->order->user->last_name }}</td>
+                            <td>{{ $data->order->inventory->product_name }}</td>
+                            <td style="width: 30%">{{ $data->order->user->address }}</td>
                             <td>
-                                <span>
-                                    ₱ {{ number_format($data->price, 2)}}
-                                </span>
+                                @if ($data->process_status == '2')
+                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                @else
+                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                @endif
                             </td>
-                                <td class="{{$data->order_status == 'Pending' ? 'bg-warning' : ($data->order_status == 'Confirmed' ? 'bg-success' : 'bg-danger')}}">{{$data->order_status}}</td>
+                            <td>
+                                @if ($data->delivery_status == '2')
+                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                @else
+                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                @endif
+                            </td>
+                            <td>
+                                @if ($data->recieve_status == '2')
+                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                @else
+                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                @endif
+                            </td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,23 +73,17 @@ Order
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <form action="updateOrderStatus" method="post">
+                                            <form action="updateOrderDelivery" method="post">
                                                 @csrf
-                                                <input type="hidden" name="order_id" value="{{$data->id}}">
-                                                <input type="hidden" name="inventory_id" value="{{$data->inventory_id}}">
-                                                <input type="hidden" name="quantity" value="{{$data->quantity}}">
-                                                <input type="hidden" name="order_status" value="Confirmed">
-                                                <a type="submit" class="dropdown-item {{$data->order_status == 'Confirmed' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Confirm</a>
+                                                <input type="hidden" name="id" value="{{$data->id}}">
+                                                <a type="submit" class="dropdown-item {{$data->delivery_status == '2' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Deliver</a>
                                             </form>
                                         </li>
                                         <li>
-                                            <form action="updateOrderStatus" method="post">
+                                            <form action="udpateOrderRecieve" method="post">
                                                 @csrf
-                                                <input type="hidden" name="order_id" value="{{$data->id}}">
-                                                <input type="hidden" name="inventory_id" value="{{$data->inventory_id}}">
-                                                <input type="hidden" name="quantity" value="{{$data->quantity}}">
-                                                <input type="hidden" name="order_status" value="Cancelled">
-                                                <a type="submit" class="dropdown-item {{$data->order_status == 'Cancelled' ? 'disabled' : ''}}" href="#" id="cancelBtn" data-id="{{$data->id}}">Cancel</a>
+                                                <input type="hidden" name="id" value="{{$data->id}}">
+                                                <a type="submit" class="dropdown-item {{$data->recieve_status == '2' ? 'disabled' : ''}}" href="#" id="cancelBtn" data-id="{{$data->id}}">Recieve</a>
                                             </form>
                                         </li>
                                     </ul>

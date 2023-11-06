@@ -30,7 +30,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col" style="flex: 10%">
                                         @if ($data->inventory->image != null)
                                             <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 100%;">
                                         @else 
@@ -42,6 +42,60 @@
                                         <p>Quantity: {{$data->quantity}}</p>
                                         <p>Address: {{$data->user->address}}</p>
                                         <p>Contact: {{$data->user->phone_number}}</p>
+                                    </div>
+                                    <div class="col" style="flex: 10%">
+                                        @if ($data->orderStatus != null)
+                                            
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="{{$data->orderStatus->process_status == '2' ? 'text-success': ''}}">Proccessing</span>
+                                                        </td>
+                                                        <td>
+                                                            @if ($data->orderStatus->process_status == '1')
+                                                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                                                </div>
+                                                            @elseif($data->orderStatus->process_status == '2')
+                                                                <i class="bi bi-check-lg {{$data->orderStatus->process_status == '2' ? 'text-success': ''}}"></i>
+                                                            @else
+
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="{{$data->orderStatus->delivery_status == '2' ? 'text-success': ''}}">Delivering</span>
+                                                        </td>
+                                                        <td>
+                                                            @if ($data->orderStatus->delivery_status == '1')
+                                                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                                                </div>
+                                                            @elseif($data->orderStatus->delivery_status == '2')
+                                                                <i class="bi bi-check-lg {{$data->orderStatus->delivery_status == '2' ? 'text-success': ''}}"></i>
+                                                            @else
+                                                            
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="{{$data->orderStatus->recieve_status == '2' ? 'text-success': ''}}">Recieved</span>
+                                                        </td>
+                                                        <td>
+                                                            @if ($data->orderStatus->recieve_status == '1')
+                                                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                                                </div>
+                                                            @elseif($data->orderStatus->recieve_status == '2')
+                                                                <i class="bi bi-check-lg {{$data->orderStatus->recieve_status == '2' ? 'text-success': ''}}"></i>
+                                                            @else
+                                                            
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        @endif
                                     </div>
                                     <div class="col" style="flex: 30%;">
                                         <div style="text-align:right;">

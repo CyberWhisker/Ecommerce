@@ -21,8 +21,14 @@
       </li>
       <li class="nav-item {{$user_role != 1 ? 'd-none' : ''}}">
         <a class="nav-link" href="{{ route('admin.order') }}">
-          <i class="bi bi-truck-front menu-icon"></i>
+          <i class="bi bi-cart menu-icon"></i>
           <span class="menu-title">Order</span>
+        </a>
+      </li>
+      <li class="nav-item {{$user_role != 1 ? 'd-none' : ''}}">
+        <a class="nav-link" href="{{ route('admin.delivery') }}">
+          <i class="bi bi-truck-front menu-icon"></i>
+          <span class="menu-title">Delivery</span>
         </a>
       </li>
       <li class="nav-item {{$user_role != 1 ? 'd-none' : ''}}">

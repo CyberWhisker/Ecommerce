@@ -42,6 +42,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('admin.order', [AdminOrderController::class, 'index'])->name('admin.order');
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+    Route::get('admin.delivery', [AdminOrderController::class, 'indexDelivery'])->name('admin.delivery');
     
     //Function Users start here
     Route::post('searchUser', [UsersController::class, 'searchUser'])->name('searchUser');
@@ -64,7 +65,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     // Function Order start here
     Route::post('updateOrderStatus', [AdminOrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+    Route::post('updateOrderDelivery', [AdminOrderController::class, 'updateOrderDelivery'])->name('updateOrderDelivery');
+    Route::post('udpateOrderRecieve', [AdminOrderController::class, 'udpateOrderRecieve'])->name('udpateOrderRecieve');
     Route::post('searchOrder', [AdminOrderController::class, 'searchOrder'])->name('searchOrder');
+    
+    // Function OrderStatus start here
 
     // Setting Function Start Here
     Route::post('storeUnit', [SettingController::class, 'storeUnit'])->name('storeUnit');

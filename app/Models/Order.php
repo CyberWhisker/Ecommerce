@@ -38,6 +38,10 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
+    
+    public function orderStatus(){
+        return $this->belongsTo(OrderStatus::class, 'id', 'order_id');
+    }
 
     public function searchOrder($search_input) {
         return $this->where('last_name', 'like', '%' .$search_input. '%')
