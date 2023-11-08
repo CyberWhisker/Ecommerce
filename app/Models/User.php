@@ -62,6 +62,8 @@ class User extends Authenticatable
 
     public function searchUser($searchInput) {
         return $this->where('last_name', 'like', '%' .$searchInput. '%')
+            ->orWhere('first_name', 'like', '%' .$searchInput. '%')
+            ->orWhere('address', 'like', '%' .$searchInput. '%')
             ->orWhere('email', 'like', '%' .$searchInput. '%')
             ->get();
     }

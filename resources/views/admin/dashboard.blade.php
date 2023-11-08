@@ -86,7 +86,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="2"><span class="text-danger">No record found!</span></td>
+                                        <td colspan="4" class="text-center"><span class="text-danger">No record found!</span></td>
                                     </tr>
                                 @endforelse
                             </tbody>

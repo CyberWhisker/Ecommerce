@@ -23,7 +23,7 @@ Order
             </div>
         </div>
         <div class="card-body" id="dataTable">
-            <table class="table table-striped table-hover table-bordered" id="table">
+            <table class="table table-striped table-bordered" id="table">
                 <thead>
                     <tr>
                         <th>ID</th>

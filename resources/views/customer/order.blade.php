@@ -22,7 +22,7 @@
         
         <div class="container" style="padding: 20px;">
             @forelse ($data_order as $data)
-                <div class="row">
+                <div class="row" style="margin-bottom: 10px">
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="col" style="flex: 10%">
                                         @if ($data->inventory->image != null)
-                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 100%;">
+                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 120px;">
                                         @else 
                                             <img src="{{ asset('images/no-image.png')}}" alt="No Image" style="height: 100px; width:100px;">
                                         @endif

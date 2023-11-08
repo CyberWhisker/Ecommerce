@@ -22,4 +22,18 @@ class OrderStatus extends Model
     public function order(){
         return $this->belongsTo(Order::class, 'order_id');
     }
+
+    public function searchDelivery($search_input) {
+        return $this->whereHas('order', function($order) use ($search_input) {
+                $order->whereHas('user', function($query) use ($search_input) {
+                    $query->where('last_name', 'like', '%' .$search_input. '%')
+                    ->orWhere('first_name', 'like', '%'. $search_input. '%')
+                    ->orWhere('address', 'like', '%'. $search_input. '%');
+                });
+                $order->orWhereHas('inventory', function($query) use ($search_input) {
+                    $query->where('product_name', 'like', '%' .$search_input. '%');
+                });
+            })
+            ->get();
+    }
 }

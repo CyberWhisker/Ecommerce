@@ -70,7 +70,7 @@ Users
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">
+                            <td colspan="7" class="text-center">
                                 <span class="text-danger" style="font-weight: bold">No record Found</span>
                             </td>
                         </tr>
@@ -126,7 +126,7 @@ Users
                             Password: <input type="text" class="form-control" name="password" required>
                         </div>
                     </div>
-                    <div class="col" style="margin-top: 10px;">
+                    {{-- <div class="col" style="margin-top: 10px;">
                         Set Role: 
                         <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
                             <option selected disabled>-Select Role-</option>
@@ -134,7 +134,7 @@ Users
                             <option value="1">Admin</option>
                             <option value="2">LGU</option>
                         </select>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
             <div class="modal-footer">

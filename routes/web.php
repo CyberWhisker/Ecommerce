@@ -43,14 +43,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('admin.order', [AdminOrderController::class, 'index'])->name('admin.order');
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::get('admin.delivery', [AdminOrderController::class, 'indexDelivery'])->name('admin.delivery');
-    
+
     //Function Users start here
     Route::post('searchUser', [UsersController::class, 'searchUser'])->name('searchUser');
     Route::post('storeUser', [UsersController::class, 'storeUser'])->name('storeUser');
     Route::post('editUser', [UsersController::class, 'editUser'])->name('editUser');
     Route::post('deleteUser', [UsersController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/profile', [StoreController::class, 'createOrUpdateStore'])->name('profile.createOrUpdateStore');
-    
+
     // Function Inventory start here
     Route::post('searchInventory', [InventoryController::class, 'searchInventory'])->name('searchInventory');
     Route::post('storeInventory', [InventoryController::class, 'storeInventory'])->name('storeInventory');
@@ -68,8 +68,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('updateOrderDelivery', [AdminOrderController::class, 'updateOrderDelivery'])->name('updateOrderDelivery');
     Route::post('udpateOrderRecieve', [AdminOrderController::class, 'udpateOrderRecieve'])->name('udpateOrderRecieve');
     Route::post('searchOrder', [AdminOrderController::class, 'searchOrder'])->name('searchOrder');
-    
-    // Function OrderStatus start here
+
+    // Function Delivery start here
+    Route::post('searchDelivery', [AdminOrderController::class, 'searchDelivery'])->name('searchDelivery');
 
     // Setting Function Start Here
     Route::post('storeUnit', [SettingController::class, 'storeUnit'])->name('storeUnit');
@@ -79,7 +80,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     // Scheduler Function Start here
     Route::post('storeCalendar', [CalendarController::class, 'storeCalendar'])->name('storeCalendar');
     Route::post('deleteCalendar', [CalendarController::class, 'deleteCalendar'])->name('deleteCalendar');
-
 });
 
 Route::prefix('customer')->middleware(['auth',])->group(function () {
@@ -93,7 +93,7 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
     Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');
     Route::post('updateUnit', [CartController::class, 'updateUnit'])->name('updateUnit');
     Route::post('deleteUnit', [CartController::class, 'deleteUnit'])->name('deleteUnit');
-    
+
     // Order Function Start Here
     Route::get('order', [OrderController::class, 'index'])->name('order');
     Route::post('storeOrder', [OrderController::class, 'storeOrder'])->name('storeOrder');
@@ -102,4 +102,4 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
     // Search Prodcut start Here
     Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

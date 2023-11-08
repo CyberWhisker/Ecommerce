@@ -44,8 +44,13 @@ class Order extends Model
     }
 
     public function searchOrder($search_input) {
-        return $this->where('last_name', 'like', '%' .$search_input. '%')
-            ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+        return $this->whereHas('user', function($query) use ($search_input) {
+                $query->where('last_name', 'like', '%' .$search_input. '%')
+                    ->orWhere('first_name', 'like', '%'. $search_input. '%');
+            })
+            ->orWhereHas('inventory', function($query) use ($search_input) {
+                $query->where('product_name', 'like', '%' .$search_input. '%');
+            })
             ->get();
     }
 }

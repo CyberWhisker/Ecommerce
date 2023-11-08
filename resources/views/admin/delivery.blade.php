@@ -10,7 +10,7 @@ Delivery
 
 
 @section('content')
-    <form id="searchForm" action="{{ route('searchOrder') }}" method="POST">
+    <form id="searchForm" action="{{ route('searchDelivery') }}" method="POST">
         @csrf
         <input type="hidden" value="" id="searchInput" name="searchInput">
     </form>

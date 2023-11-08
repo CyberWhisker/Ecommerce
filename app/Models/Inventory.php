@@ -35,6 +35,9 @@ class Inventory extends Model
     }
     public function searchInventory($search_input) {
         return $this->where('product_name', 'like', '%' .$search_input. '%')
+            ->orWhereHas('unit', function($query) use ($search_input) {
+                $query->where('unit', 'like', '%'. $search_input. '%');
+            })
             ->get();
     }
     

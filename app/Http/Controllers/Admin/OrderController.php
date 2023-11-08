@@ -113,4 +113,14 @@ class OrderController extends Controller
             'user_role' => $user_role,
         ]);
     }
+
+    public function searchDelivery(Request $request){
+        $order_status = new OrderStatus();
+        $user_role = Auth::user()->role_as;
+        $data_order_status = $order_status->searchDelivery($request->searchInput);
+        return view('admin.delivery', [
+            'user_role' => $user_role,
+            'data_order_status' => $data_order_status
+        ]);
+    }
 }
