@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
         .dropdown-menu {
             border-radius: 5px !important;
@@ -50,6 +51,9 @@
         }
         #editBtn:hover {
             background-color: yellow;
+        }
+        .bi-star:hover {
+            color: gold; /* Change the color to represent a filled star */
         }
     </style>
 </head>

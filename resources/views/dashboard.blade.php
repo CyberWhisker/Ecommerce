@@ -41,6 +41,13 @@
                     <div class="content">
                         <div class="row">
                             @forelse ($data_inventory as $data)
+                                @php
+                                    $rating_collection = collect();
+                                    foreach ($data->order as $data_rating) {
+                                        $rating_collection->push($data_rating->rating);
+                                    }
+                                    $rating = $rating_collection->avg();
+                                @endphp
                                 <div class="col" id="items" style="margin-bottom: 90px;">
                                     <div class="card">
                                         <div class="card-body" style="height: 200px;">
@@ -49,6 +56,18 @@
                                             @else 
                                                 <img src="{{ asset('images/no-image.png')}}" alt="No Image">
                                             @endif
+                                            <div class="d-flex">
+                                                <span>
+                                                    Rating:
+                                                    @php
+                                                        $star = '';
+                                                        for ($i=0; $i < floor($rating); $i++) { 
+                                                            $star .= '<i class="bi bi-star-fill" style="color:gold;margin-left:2px"></i>';
+                                                        }
+                                                        echo $star;
+                                                    @endphp
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="card-footer">
                                             <div class="row">

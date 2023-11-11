@@ -14,6 +14,7 @@ class Order extends Model
         'quantity',
         'order_status',
         'price',
+        'review',
     ];
 
     public function getOrderByUserId($user_id) {

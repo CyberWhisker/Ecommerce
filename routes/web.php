@@ -99,6 +99,7 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
     Route::get('order', [OrderController::class, 'index'])->name('order');
     Route::post('storeOrder', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::post('deleteOrder', [OrderController::class, 'deleteOrder'])->name('deleteOrder');
+    Route::post('reviewOrder', [OrderController::class, 'reviewOrder'])->name('reviewOrder');
 
     // Search Prodcut start Here
     Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');

@@ -47,23 +47,25 @@ Delivery
                             <td style="width: 30%">{{ $data->order->user->address }}</td>
                             <td>
                                 @if ($data->process_status == '2')
-                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                    <input type="text" class="form-control bg-success" disabled value="Done">  
                                 @else
-                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                    <input type="text" class="form-control bg-warning" disabled value="Processing"> 
                                 @endif
                             </td>
                             <td>
                                 @if ($data->delivery_status == '2')
-                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                    <input type="text" class="form-control bg-success" disabled value="Done">    
+                                @elseif($data->process_status == '2')
+                                    <input type="text" class="form-control bg-warning" disabled value="Delivering">    
                                 @else
-                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                    <input type="text" class="form-control bg-secondary" disabled value="Ongoing"> 
                                 @endif
                             </td>
                             <td>
                                 @if ($data->recieve_status == '2')
-                                    <input type="text" class="form-control bg-success" disabled value="Done">                                    
+                                    <input type="text" class="form-control bg-success" disabled value="Done">   
                                 @else
-                                    <input type="text" class="form-control bg-warning" disabled value="Ongoing"> 
+                                    <input type="text" class="form-control bg-secondary" disabled value="Ongoing"> 
                                 @endif
                             </td>
                             <td>

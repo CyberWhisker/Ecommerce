@@ -57,4 +57,20 @@ class OrderController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function reviewOrder(Request $request) {
+        try {
+            $request->validate([
+                'id' => 'required'
+            ]);
+            Order::where('id',$request->id)
+                ->update([
+                    'review' => $request->review,
+                    'rating' => $request->rating,
+                ]);
+            return redirect()->back()->with('success', 'Order has been Reviewed');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('price');
             $table->string('order_status')->default('Pending');
+            $table->longText('review')->nullable();
+            $table->integer('rating')->nullable();
             $table->timestamps();
         });
     }

@@ -61,7 +61,11 @@ class OrderController extends Controller
                 Inventory::where('id', $request->inventory_id)->update([
                     'quantity' => $new_inventory_quantity
                 ]);
-                OrderStatus::where('order_id', $request->order_id)->delete();
+                OrderStatus::where('order_id', $request->order_id)->update([
+                    'process_status' => 0,
+                    'delivery_status' => 0,
+                    'recieve_status' => 0,
+                ]);
             }
             Order::where('id', $request->order_id)->update([
                 "order_status" => $request->order_status

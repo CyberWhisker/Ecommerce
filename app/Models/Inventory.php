@@ -33,6 +33,12 @@ class Inventory extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
+    
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'inventory_id');
+    }
+    
     public function searchInventory($search_input) {
         return $this->where('product_name', 'like', '%' .$search_input. '%')
             ->orWhereHas('unit', function($query) use ($search_input) {
