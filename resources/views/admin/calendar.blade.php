@@ -25,40 +25,41 @@
       </div>
     </div>
   </div>
+  <!-- Modal for Adding -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h1 class="modal-title fs-5 text-white" id="addModalLabel">Add Event</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('storeCalendar') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <span>Title:</span>
+                    <input type="text" class="form-control" name="title">
+                    <div class="row">
+                      <div class="col">
+                        <span>Start Date:</span>
+                        <input type="text" class="form-control datepicker" name="start_date" autocomplete="off">
+                      </div>
+                      <div class="col">
+                        <span>End Date:</span>
+                        <input type="text" class="form-control datepicker" name="end_date" autocomplete="off">
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
 @endsection
 
-<!-- Modal for Adding -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header bg-primary">
-              <h1 class="modal-title fs-5 text-white" id="addModalLabel">Add Event</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form action="{{ route('storeCalendar') }}" method="POST">
-              @csrf
-              <div class="modal-body">
-                  <span>Title:</span>
-                  <input type="text" class="form-control" name="title">
-                  <div class="row">
-                    <div class="col">
-                      <span>Start Date:</span>
-                      <input type="text" class="form-control datepicker" name="start_date" autocomplete="off">
-                    </div>
-                    <div class="col">
-                      <span>End Date:</span>
-                      <input type="text" class="form-control datepicker" name="end_date" autocomplete="off">
-                    </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
+
 
 @section('script')
   <script>

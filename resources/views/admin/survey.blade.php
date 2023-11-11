@@ -76,121 +76,121 @@ Survey
     </div>
 
     @include('plugin.table-plug')
-    
-@endsection
-<!-- Modal for Adding Survey -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addModalLabel">Add Survey</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addForm" action="{{ route('storeSurvey') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col">
-                            Product Name: <input type="text" class="form-control" name="product_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col" style="flex: 20%">
-                            {{-- Unit: <input type="text" class="form-control" name="unit" required> --}}
-                            Unit: 
-                            <select class="form-select" name="unit_id" id="unit">
-                                <option selcted>Select Measure Unit</option>
-                                @forelse ($data_unit as $data)
-                                    <option value="{{$data->id}}">{{$data->unit}}</option>
-                                @empty
-                                    <option selected disabled>Empty</option>
-                                @endforelse
-                            </select>
-                        </div>
-                        <div class="col">
-                            Price: <input type="text" class="form-control" name="price" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Survey Location <input type="text" class="form-control" name="survey_location" required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addBtn">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Editing User -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Add User</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editForm" action="{{ route('updateSurvey') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" id="id" value="">
-                    <div class="row">
-                        <div class="col">
-                            Product Name: <input type="text" class="form-control" name="product_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Unit: 
-                            <select class="form-select" name="unit_id" id="unit">
-
-                            </select>
-                        </div>
-                        <div class="col">
-                            Price: <input type="text" class="form-control" name="price" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Survey Location: <input type="text" class="form-control" name="survey_location" required>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Delete -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+    <!-- Modal for Adding Survey -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addModalLabel">Add Survey</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('deleteSurvey') }}" method="POST">
-                @csrf
+                </div>
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="id" value="">
-                    This user will be deleted!
+                    <form id="addForm" action="{{ route('storeSurvey') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col">
+                                Product Name: <input type="text" class="form-control" name="product_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="flex: 20%">
+                                {{-- Unit: <input type="text" class="form-control" name="unit" required> --}}
+                                Unit: 
+                                <select class="form-select" name="unit_id" id="unit">
+                                    <option selcted>Select Measure Unit</option>
+                                    @forelse ($data_unit as $data)
+                                        <option value="{{$data->id}}">{{$data->unit}}</option>
+                                    @empty
+                                        <option selected disabled>Empty</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                            <div class="col">
+                                Price: <input type="text" class="form-control" name="price" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Survey Location <input type="text" class="form-control" name="survey_location" required>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-primary" id="addBtn">Save changes</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal for Editing User -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editModalLabel">Add User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="{{ route('updateSurvey') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" id="id" value="">
+                        <div class="row">
+                            <div class="col">
+                                Product Name: <input type="text" class="form-control" name="product_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Unit: 
+                                <select class="form-select" name="unit_id" id="unit">
+
+                                </select>
+                            </div>
+                            <div class="col">
+                                Price: <input type="text" class="form-control" name="price" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Survey Location: <input type="text" class="form-control" name="survey_location" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Delete -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('deleteSurvey') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id" value="">
+                        This user will be deleted!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
 
 @section('script')
     <script>

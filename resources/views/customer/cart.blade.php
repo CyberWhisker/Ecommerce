@@ -77,60 +77,62 @@
             @endforelse
         </div>
     </x-app-layout>
+
+    <!-- Modal for Delete -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('deleteCart') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id" value="">
+                        This product will be removed!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for buy -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('pay') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="cart_id" id="cart_id" value="">
+                        <input type="hidden" name="user_id" id="user_id" value="">
+                        <input type="hidden" name="inventory_id" id="inventory_id" value="">
+                        <input type="hidden" name="quantity"value="">
+                        <span>Name:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
+                        <span>Quantity:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="quantity" disabled>
+                        <span>Address:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Proceed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
-<!-- Modal for Delete -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('deleteCart') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="id" value="">
-                    This product will be removed!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Remove</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal for buy -->
-<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('storeOrder') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="cart_id" id="cart_id" value="">
-                    <input type="hidden" name="user_id" id="user_id" value="">
-                    <input type="hidden" name="inventory_id" id="inventory_id" value="">
-                    <input type="hidden" name="quantity"value="">
-                    <span>Name:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
-                    <span>Quantity:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="quantity" disabled>
-                    <span>Address:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Proceed</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 @section('script')
     <script>

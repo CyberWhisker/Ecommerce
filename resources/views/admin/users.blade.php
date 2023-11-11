@@ -82,145 +82,145 @@ Users
     </div>
 
     @include('plugin.table-plug')
-    
-@endsection
-<!-- Modal for Adding User -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="addModalLabel">Add User</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addForm" action="{{ route('storeUser') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col">
-                            First Name: <input type="text" class="form-control" name="first_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Middle Name: <input type="text" class="form-control" name="middle_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Last Name: <input type="text" class="form-control" name="last_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Address: <input type="text" class="form-control" name="address" required>
-                        </div>
-                        <div class="col">
-                            Contact Number: <input type="text" class="form-control" name="phone_number" required>  
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Email: <input type="text" class="form-control" name="email" required>
-                        </div>
-                        <div class="col">
-                            Password: <input type="text" class="form-control" name="password" required>
-                        </div>
-                    </div>
-                    {{-- <div class="col" style="margin-top: 10px;">
-                        Set Role: 
-                        <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
-                            <option selected disabled>-Select Role-</option>
-                            <option value="0">Customer</option>
-                            <option value="1">Admin</option>
-                            <option value="2">LGU</option>
-                        </select>
-                    </div> --}}
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addBtn">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Editing User -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel">Edit User</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editForm" action="{{ route('editUser') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="user_id" id="user_id" value="">
-                    <div class="row">
-                        <div class="col">
-                            First Name: <input type="text" class="form-control" name="first_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Middle Name: <input type="text" class="form-control" name="middle_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Last Name: <input type="text" class="form-control" name="last_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            Address: <input type="text" class="form-control" name="address" required>
-                        </div>
-                        <div class="col">
-                            Contact Number: <input type="text" class="form-control" name="phone_number" required>
-                        </div>
-                    </div>
-                    <div class="col" style="margin-top: 10px;">
-                        Set Role: 
-                        <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
-                            <option selected disabled>-Select Role-</option>
-                            <option value="0">Customer</option>
-                            <option value="1">Admin</option>
-                            <option value="2">LGU</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Delete -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+    <!-- Modal for Adding User -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addModalLabel">Add User</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('deleteUser') }}" method="POST">
-                @csrf
+                </div>
                 <div class="modal-body">
-                    <input type="hidden" name="user_id" id="user_id" value="">
-                    This user will be deleted!
+                    <form id="addForm" action="{{ route('storeUser') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col">
+                                First Name: <input type="text" class="form-control" name="first_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Middle Name: <input type="text" class="form-control" name="middle_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Last Name: <input type="text" class="form-control" name="last_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Address: <input type="text" class="form-control" name="address" required>
+                            </div>
+                            <div class="col">
+                                Contact Number: <input type="text" class="form-control" name="phone_number" required>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Email: <input type="text" class="form-control" name="email" required>
+                            </div>
+                            <div class="col">
+                                Password: <input type="text" class="form-control" name="password" required>
+                            </div>
+                        </div>
+                        {{-- <div class="col" style="margin-top: 10px;">
+                            Set Role: 
+                            <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
+                                <option selected disabled>-Select Role-</option>
+                                <option value="0">Customer</option>
+                                <option value="1">Admin</option>
+                                <option value="2">LGU</option>
+                            </select>
+                        </div> --}}
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-primary" id="addBtn">Save changes</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal for Editing User -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editModalLabel">Edit User</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="{{ route('editUser') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" id="user_id" value="">
+                        <div class="row">
+                            <div class="col">
+                                First Name: <input type="text" class="form-control" name="first_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Middle Name: <input type="text" class="form-control" name="middle_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Last Name: <input type="text" class="form-control" name="last_name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Address: <input type="text" class="form-control" name="address" required>
+                            </div>
+                            <div class="col">
+                                Contact Number: <input type="text" class="form-control" name="phone_number" required>
+                            </div>
+                        </div>
+                        <div class="col" style="margin-top: 10px;">
+                            Set Role: 
+                            <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
+                                <option selected disabled>-Select Role-</option>
+                                <option value="0">Customer</option>
+                                <option value="1">Admin</option>
+                                <option value="2">LGU</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Delete -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h1 class="modal-title fs-5 text-white" id="deleteModalLabel">Warning!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('deleteUser') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="user_id" id="user_id" value="">
+                        This user will be deleted!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
 
 @section('script')
     <script>

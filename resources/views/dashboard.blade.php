@@ -21,6 +21,7 @@
         </x-slot>
         
         <div class="container" style="padding: 20px;">
+            @include('customer/alert')
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -87,67 +88,68 @@
             </div>
         </div>
     </x-app-layout>
+    <!-- Modal for Add Cart -->
+    <div class="modal fade" id="addCartModal" tabindex="-1" aria-labelledby="addCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h1 class="modal-title fs-5 text-white" id="addCartModalLabel">Add to Cart</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('storeCart') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="inventory_id" id="id" value="">
+                        <span>Product Name:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
+                        Quantity: 
+                        <select class="form-select" name="quantity" id="quantity" style="border-radius: 10px;">
+
+                        </select>
+                        <span>Address:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning">yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for buy -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('pay') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="inventory_id" id="inventory_id" value="">
+                        <span>Product Name:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
+                        <span>Quantity:</span>
+                        <select class="form-select" name="quantity" id="quantity" style="border-radius: 10px;">
+
+                        </select>
+                        <span>Address:</span>
+                        <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Proceed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
-<!-- Modal for Add Cart -->
-<div class="modal fade" id="addCartModal" tabindex="-1" aria-labelledby="addCartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h1 class="modal-title fs-5 text-white" id="addCartModalLabel">Add to Cart</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('storeCart') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="inventory_id" id="id" value="">
-                    <span>Product Name:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
-                    Quantity: 
-                    <select class="form-select" name="quantity" id="quantity" style="border-radius: 10px;">
 
-                    </select>
-                    <span>Address:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-warning">yes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal for buy -->
-<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('storeOrder') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <input type="hidden" name="inventory_id" id="inventory_id" value="">
-                    <span>Product Name:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="product_name" disabled>
-                    <span>Quantity:</span>
-                    <select class="form-select" name="quantity" id="quantity" style="border-radius: 10px;">
-
-                    </select>
-                    <span>Address:</span>
-                    <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Proceed</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 @section('script')

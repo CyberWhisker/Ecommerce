@@ -50,7 +50,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <span class="{{$data->orderStatus->process_status == '2' ? 'text-success': ''}}">Proccessing</span>
+                                                            <span class="{{$data->orderStatus->process_status == '2' ? 'text-success': ($data->orderStatus->process_status == '1' ? 'text-warning': '')}}">Proccessing</span>
                                                         </td>
                                                         <td>
                                                             @if ($data->orderStatus->process_status == '1')
@@ -65,7 +65,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <span class="{{$data->orderStatus->delivery_status == '2' ? 'text-success': ''}}">Delivering</span>
+                                                            <span class="{{$data->orderStatus->delivery_status == '2' ? 'text-success': ($data->orderStatus->delivery_status == '1' ? 'text-warning': '')}}">Delivering</span>
                                                         </td>
                                                         <td>
                                                             @if ($data->orderStatus->delivery_status == '1')
@@ -80,7 +80,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <span class="{{$data->orderStatus->recieve_status == '2' ? 'text-success': ''}}">Recieved</span>
+                                                            <span class="{{$data->orderStatus->recieve_status == '2' ? 'text-success': ($data->orderStatus->recieve_status == '1' ? 'text-warning': '')}}">Recieved</span>
                                                         </td>
                                                         <td>
                                                             @if ($data->orderStatus->recieve_status == '1')
@@ -130,8 +130,7 @@
             @endforelse
         </div>
     </x-app-layout>
-@endsection
-
+    
 <!-- Modal for Delete -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -154,6 +153,8 @@
         </div>
     </div>
 </div>
+@endsection
+
 
 @section('script')
     <script>

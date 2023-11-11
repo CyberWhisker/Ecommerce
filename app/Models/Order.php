@@ -20,6 +20,10 @@ class Order extends Model
         return $this->where('user_id', $user_id)->get();
     } 
 
+    public function fetchLatestOrderByUserId($user_id) {
+        return $this->where('user_id', $user_id)->latest()->first();
+    }
+
     public function getOrderChart() {
         return $this->select('inventory_id', \DB::raw('SUM(price) as total_price'))
             ->groupBy('inventory_id')

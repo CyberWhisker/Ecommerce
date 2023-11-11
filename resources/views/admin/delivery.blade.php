@@ -76,14 +76,14 @@ Delivery
                                             <form action="updateOrderDelivery" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$data->id}}">
-                                                <a type="submit" class="dropdown-item {{$data->delivery_status == '2' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Deliver</a>
+                                                <a type="submit" class="dropdown-item {{$data->delivery_status == '2' ||$data->delivery_status == '1' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Deliver</a>
                                             </form>
                                         </li>
                                         <li>
                                             <form action="udpateOrderRecieve" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$data->id}}">
-                                                <a type="submit" class="dropdown-item {{$data->recieve_status == '2' ? 'disabled' : ''}}" href="#" id="cancelBtn" data-id="{{$data->id}}">Recieve</a>
+                                                <a type="submit" class="dropdown-item {{$data->recieve_status == '2' || $data->delivery_status == 0 ? 'disabled' : ''}}" href="#" id="cancelBtn" data-id="{{$data->id}}">Recieve</a>
                                             </form>
                                         </li>
                                     </ul>
