@@ -48,10 +48,14 @@ class OrderController extends Controller
                     Inventory::where('id', $request->inventory_id)->update([
                         'quantity' => $new_inventory_quantity
                     ]);
-                    OrderStatus::create([
-                        'order_id' => $request->order_id,
-                        'process_status' => 1,
-                    ]);
+                    OrderStatus::updateOrCreate(
+                        [
+                            'order_id' => $request->order_id,
+                        ],
+                        [
+                            'process_status' => 1,
+                        ]
+                    );
                 }
             }
             if ($request->order_status == 'Cancelled') {

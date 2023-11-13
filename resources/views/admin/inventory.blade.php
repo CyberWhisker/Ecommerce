@@ -168,7 +168,7 @@ Inventory
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
+                    <button type="button" class="btn btn-warning" id="editBtnSubmit">Save changes</button>
                 </div>
             </div>
         </div>
@@ -241,7 +241,7 @@ Inventory
             e.preventDefault();
             $('#searchForm').submit();
         });
-        $('#editBtn').click(() => {
+        $('#editBtnSubmit').click(() => {
             $('#editForm').submit();
         });
         $('#addBtn').click(() => {

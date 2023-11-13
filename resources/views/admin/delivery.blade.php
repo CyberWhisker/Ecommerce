@@ -44,7 +44,7 @@ Delivery
                             <td>{{ $data->id }}</td>
                             <td style="width: 15%">{{ $data->order->user->first_name }} {{ $data->order->user->last_name }}</td>
                             <td>{{ $data->order->inventory->product_name }}</td>
-                            <td style="width: 30%">{{ $data->order->user->address }}</td>
+                            <td style="width: 25%">{{ $data->order->user->address }}</td>
                             <td>
                                 @if ($data->process_status == '2')
                                     <input type="text" class="form-control bg-success" disabled value="Done">  
@@ -78,7 +78,7 @@ Delivery
                                             <form action="updateOrderDelivery" method="post">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$data->id}}">
-                                                <a type="submit" class="dropdown-item {{$data->delivery_status == '2' ||$data->delivery_status == '1' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Deliver</a>
+                                                <a type="submit" class="dropdown-item {{$data->delivery_status == '2' ||$data->delivery_status == '1' || $data->order->order_status == 'Cancelled'  ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Deliver</a>
                                             </form>
                                         </li>
                                         <li>
