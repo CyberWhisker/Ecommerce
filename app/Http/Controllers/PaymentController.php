@@ -100,9 +100,7 @@ class PaymentController extends Controller
             }
             $data_order = $order->getOrderByUserId($user_id);
             DB::commit();
-            return view('customer.order', [
-                'data_order' => $data_order
-            ]);
+            return redirect()->route('order');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

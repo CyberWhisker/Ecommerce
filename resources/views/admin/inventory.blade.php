@@ -47,7 +47,7 @@ Inventory
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->product_name }}</td>
                             <td>{{ $data->quantity }}</td>
-                            <td>{{ $data->unit->unit }}</td>
+                            <td>{{ optional($data->unit)->unit }}</td>
                             <td>{{ $data->price }}</td>
                             <td>{{ $data->updated_at->format('M-m-Y') }}</td>
                             <td>

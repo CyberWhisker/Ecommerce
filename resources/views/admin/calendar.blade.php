@@ -98,7 +98,7 @@
       $('#calendar').toggle();
       $('#calendarTable').toggle();
     });
-    $('#deleteBtn').click(function (e) { 
+    $('#table #deleteBtn').click(function (e) { 
       e.preventDefault();
       let id = $(this).data('id');
       $('#id').val(id);

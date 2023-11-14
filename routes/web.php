@@ -89,11 +89,7 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
 
     // Cart Function Start here
     Route::post('deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
-
-    // Cart Function Start Here
     Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');
-    Route::post('updateUnit', [CartController::class, 'updateUnit'])->name('updateUnit');
-    Route::post('deleteUnit', [CartController::class, 'deleteUnit'])->name('deleteUnit');
 
     // Order Function Start Here
     Route::get('order', [OrderController::class, 'index'])->name('order');

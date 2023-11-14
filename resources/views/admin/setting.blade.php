@@ -90,7 +90,7 @@ Setting
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning" id="editBtn">Save changes</button>
+                    <button type="button" class="btn btn-warning" id="editSubmit">Save changes</button>
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@ Setting
         $('#search').addClass('d-none');
         $('#searchBtn').addClass('d-none');
         });
-        $('#editBtn').click(() => {
+        $('#editSubmit').click(() => {
             $('#editForm').submit();
         });
         $('#addBtn').click(() => {
