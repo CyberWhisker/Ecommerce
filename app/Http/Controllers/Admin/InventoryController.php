@@ -55,6 +55,10 @@ class InventoryController extends Controller
     public function updateInventory(Request $request) {
         $user_id = Auth::user()->id;
         $price = $request->price;
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('imgProduct','public');
+        }
         try {
             $request->validate([
                 'product_name' => ['required'],
@@ -69,7 +73,7 @@ class InventoryController extends Controller
                 'quantity' => $request->quantity,
                 'unit_id' => $request->unit_id,
                 'price' => $price,
-
+                'image' => $path
             ]);
             return redirect()->back()->with('success', 'Successfully updated to inventory');
         } catch (Exception $e) {
