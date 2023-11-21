@@ -10,6 +10,7 @@ use Curl;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
@@ -43,7 +44,7 @@ class PaymentController extends Controller
                     'payment_method_types' => [
                         'card',
                     ],
-                    'success_url' => 'http://localhost:8000/success',
+                    'success_url' => 'http://localhost:8000/customer/success',
                     'cancel_url' => 'http://localhost:8000',
                     'description' => 'Ordered Product'
                 ],
@@ -56,7 +57,7 @@ class PaymentController extends Controller
             ->withData($data)
             ->asJson()
             ->post();
-        \Session::put([
+        Session::put([
             'session_id' => $response->data->id,
             'inventory_id' => $request->inventory_id,
             'user_id' => $user->id,
@@ -65,9 +66,9 @@ class PaymentController extends Controller
     }
 
     public function success() {
-        $session_id = \Session::get('session_id'); // Make sure to use the correct session variable name
-        $inventory_id = \Session::get('inventory_id');
-        $user_id = \Session::get('user_id');
+        $session_id = Session::get('session_id'); // Make sure to use the correct session variable name
+        $inventory_id = Session::get('inventory_id');
+        $user_id = Session::get('user_id');
         $response = Curl::to("https://api.paymongo.com/v1/checkout_sessions/{$session_id}")
             ->withHeader('accept: application/json')
             ->withHeader('Authorization: Basic ' . base64_encode('sk_test_qqozF1K94HBX1ErwuBnJ6myL'))

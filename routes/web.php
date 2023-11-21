@@ -101,8 +101,8 @@ Route::prefix('customer')->middleware(['auth',])->group(function () {
     Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');
     
     // Payment function start here
+    Route::post('pay', [PaymentController::class, 'pay'])->name('pay');
+    Route::get('success', [PaymentController::class, 'success'])->name('success');
+    Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
-Route::post('pay', [PaymentController::class, 'pay'])->name('pay');
-Route::get('success', [PaymentController::class, 'success'])->name('success');
-Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 require __DIR__ . '/auth.php';
