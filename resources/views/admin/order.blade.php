@@ -47,7 +47,7 @@ Order
                             <td>{{ $data->user->address }}</td>
                             <td>{{ $data->user->phone_number }}</td>
                             <td>{{ $data->inventory->product_name }}</td>
-                            <td>{{ $data->quantity }} {{ $data->inventory->unit->unit }}</td>
+                            <td>{{ $data->quantity }} {{ optional($data->inventory->unit)->unit }}</td>
                             <td>
                                 <span>
                                     ₱ {{ number_format($data->price, 2)}}

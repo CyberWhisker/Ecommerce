@@ -50,7 +50,7 @@
         </div>
         <div class="card col bg-success">
             <div class="card-header">
-                <h3 class="text-white">Total Sales</h3>
+                <h3 class="text-white">Total Sales:</h3>
             </div>
             <div class="card-body text-center">
                 <h1 class="text-white">₱ {{number_format($data_order->where('order_status', 'Confirmed')->sum('price'), 2)}}</h1>
@@ -62,8 +62,40 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col" style="border-right: 2px solid black; flex:30%">
-                        <h3>Sale Chart:</h3>
-                        <canvas id="barChart"></canvas>
+                        <div class="row">
+                            <div class="col">
+                                <h3 style="margin-top: 5px">Sale Chart:</h3>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <form action="{{ route('chartDate') }}" method="POST">
+                                            @csrf
+                                            <select class="form-select" name="chartDate" id="chartDate" style="float: right;" onchange="submit()">
+                                                <option value="0">-Select Date-</option>
+                                                <option value="1" {{ $chartDate == 1 ? 'selected' : ''}}>Daily</option>
+                                                <option value="2" {{ $chartDate == 2 ? 'selected' : ''}}>Weekly</option>
+                                                <option value="3" {{ $chartDate == 3 ? 'selected' : ''}}>Monthly</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form action="{{ route('chartType')}}" method="POST">
+                                            @csrf
+                                            <select class="form-select" name="chartType" id="chartType" style="float: right;" onchange="submit()">
+                                                <option value="0">-Select Chart-</option>
+                                                <option value="1" {{ $chartType == 1 ? 'selected' : ''}}>Bar Chart</option>
+                                                <option value="2" {{ $chartType == 2 ? 'selected' : ''}}>Pie Chart</option>
+                                                <option value="3" {{ $chartType == 3 ? 'selected' : ''}}>Line Chart</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="barChart" class="{{$chartType == 1 ? '' : 'd-none'}}"></canvas>
+                        <canvas id="pieChart" class="{{$chartType == 2 ? '' : 'd-none'}}"></canvas>
+                        <canvas id="lineChart" class="{{$chartType == 3 ? '' : 'd-none'}}"></canvas>
                     </div>
                     <div class="col">
                         <h3>Market Price: (Survey Location)</h3>

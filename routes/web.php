@@ -81,6 +81,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     // Scheduler Function Start here
     Route::post('storeCalendar', [CalendarController::class, 'storeCalendar'])->name('storeCalendar');
     Route::post('deleteCalendar', [CalendarController::class, 'deleteCalendar'])->name('deleteCalendar');
+
+    // Dashboard Function start here
+    Route::post('chartDate', [DashBoardController::class, 'chartDate'])->name('chartDate');
+    Route::post('chartType', [DashBoardController::class, 'chartType'])->name('chartType');
+
 });
 
 Route::prefix('customer')->middleware(['auth',])->group(function () {

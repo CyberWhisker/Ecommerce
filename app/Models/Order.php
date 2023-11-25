@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -26,11 +27,37 @@ class Order extends Model
     }
 
     public function getOrderChart() {
-        return $this->select('inventory_id', \DB::raw('SUM(price) as total_price'))
+        return $this->select('inventory_id', DB::raw('SUM(price) as total_price'))
             ->groupBy('inventory_id')
             ->get();
     }
+
+    public function getOrderChartByDay() {
+        return $this->select(
+                DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date'), 
+                DB::raw('SUM(price) as total_price')
+            )
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+            ->get();
+    }
+
+    public function getOrderChartByWeek() {
+        return $this->select(
+                DB::raw('DATE_FORMAT(created_at, "Week %u") as date'),
+                DB::raw('SUM(price) as total_price')
+            )
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "Week %u")'))
+            ->get();
+    }
     
+    public function getOrderChartByMonth() {
+        return $this->select(
+                DB::raw('DATE_FORMAT(created_at, "%b") as date'),
+                DB::raw('SUM(price) as total_price')
+            )
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%b")'))
+            ->get();
+    }
 
     public function getAllOrder() {
         return $this->get();
