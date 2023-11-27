@@ -12,6 +12,10 @@
         border-radius: 10px;
     }
 </style>
+@section('title')
+Kadiwa/Order
+@endsection
+
 @section('content')
     <x-app-layout>
         <x-slot name="header">

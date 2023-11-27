@@ -18,6 +18,10 @@ class Cart extends Model
         return $this->where('user_id', $user_id)->get();
     }
 
+    public function fetchCartById($id) {
+        return $this->where('id', $id)->first();
+    }
+
     public function inventory(){
         return $this->belongsTo(Inventory::class, 'inventory_id');
     }

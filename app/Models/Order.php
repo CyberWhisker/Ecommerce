@@ -27,7 +27,7 @@ class Order extends Model
     }
 
     public function getOrderChart() {
-        return $this->select('inventory_id', DB::raw('SUM(price) as total_price'))
+        return $this->select('inventory_id', DB::raw('SUM(quantity) as total_quantity'))
             ->groupBy('inventory_id')
             ->get();
     }
@@ -83,6 +83,13 @@ class Order extends Model
             ->orWhereHas('inventory', function($query) use ($search_input) {
                 $query->where('product_name', 'like', '%' .$search_input. '%');
             })
+            ->get();
+    }
+
+    public function getOrderByArray($array) {
+        return $this->select('inventory_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->whereIn('id', $array)
+            ->groupBy('inventory_id')
             ->get();
     }
 }

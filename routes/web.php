@@ -26,7 +26,7 @@ use App\Http\Controllers\StoreController;
 |
 */
 
-Route::get('/', [CustomerDashboardController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/', [CustomerDashboardController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
     // Web links start here
     Route::get('dashboard', [DashBoardController::class, 'index'])->name('dashboard');
     Route::get('users', [UsersController::class, 'index'])->name('users');
@@ -44,6 +44,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('admin.order', [AdminOrderController::class, 'index'])->name('admin.order');
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::get('admin.delivery', [AdminOrderController::class, 'indexDelivery'])->name('admin.delivery');
+    Route::get('exportPdf', [DashBoardController::class, 'exportPdf'])->name('exportPdf');
 
     //Function Users start here
     Route::post('searchUser', [UsersController::class, 'searchUser'])->name('searchUser');
@@ -51,6 +52,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('editUser', [UsersController::class, 'editUser'])->name('editUser');
     Route::post('deleteUser', [UsersController::class, 'deleteUser'])->name('deleteUser');
     Route::post('/profile', [StoreController::class, 'createOrUpdateStore'])->name('profile.createOrUpdateStore');
+    Route::post('filterByRole', [UsersController::class, 'filterByRole'])->name('filterByRole');
 
     // Function Inventory start here
     Route::post('searchInventory', [InventoryController::class, 'searchInventory'])->name('searchInventory');
@@ -63,6 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('storeSurvey', [SurveyController::class, 'storeSurvey'])->name('storeSurvey');
     Route::post('updateSurvey', [SurveyController::class, 'updateSurvey'])->name('updateSurvey');
     Route::post('deleteSurvey', [SurveyController::class, 'deleteSurvey'])->name('deleteSurvey');
+    Route::post('searchSurveyAjax', [SurveyController::class, 'searchSurveyAjax'])->name('searchSurveyAjax');
 
     // Function Order start here
     Route::post('updateOrderStatus', [AdminOrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
@@ -85,29 +88,29 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     // Dashboard Function start here
     Route::post('chartDate', [DashBoardController::class, 'chartDate'])->name('chartDate');
     Route::post('chartType', [DashBoardController::class, 'chartType'])->name('chartType');
-
+    Route::post('inventoryDate', [DashBoardController::class, 'inventoryDate'])->name('inventoryDate');
 });
 
-Route::prefix('customer')->middleware(['auth',])->group(function () {
+Route::prefix('customer')->middleware(['auth', 'verified'])->group(function () {
     // Web links start here
     Route::get('cart', [CartController::class, 'index'])->name('cart');
+    Route::get('order', [OrderController::class, 'index'])->name('order');
 
     // Cart Function Start here
     Route::post('deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
     Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');
 
     // Order Function Start Here
-    Route::get('order', [OrderController::class, 'index'])->name('order');
     Route::post('storeOrder', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::post('deleteOrder', [OrderController::class, 'deleteOrder'])->name('deleteOrder');
     Route::post('reviewOrder', [OrderController::class, 'reviewOrder'])->name('reviewOrder');
 
     // Search Prodcut start Here
-    Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');
     
     // Payment function start here
     Route::post('pay', [PaymentController::class, 'pay'])->name('pay');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
+Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');
 require __DIR__ . '/auth.php';

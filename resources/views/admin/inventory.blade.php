@@ -113,12 +113,16 @@ Inventory
                             </div>
                         </div>
                         
-                        <div class="row">
+                        <div class="row" style="border-bottom: 2px solid black; padding-bottom: 10px">
                             <div class="col">
                                 Image: <input type="file" class="form-control" name="image" id="image">
                             </div>
                         </div>
                     </form>
+                    <h4>Suggested Price:</h4>
+                    <div id="tablePrice">
+    
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -246,6 +250,87 @@ Inventory
         });
         $('#addBtn').click(() => {
             $('#addForm').submit();
+        });
+        $('#addModal [name="product_name"]').keyup(function (e) { 
+            e.preventDefault();
+            let product_name = $(this).val();
+            var table = null;
+            $.ajax({
+                type: "POST",
+                url: "{{ route('searchSurveyAjax')}}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_name: product_name
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data.product_name);
+                    if (data.product_name != undefined) {
+                        var table = `
+                            <table class="table table-striped table-hover table-bordered" id="tablePrice">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Unit</th>
+                                        <th style="width:50px;">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            ${data.product_name}
+                                        </td>
+                                        <td>
+                                            ${data.unit}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-danger priceBtn" data-price="${data.price - 1.5}" style="width:100%;">
+                                                ${data.price - 1.5}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ${data.product_name}
+                                        </td>
+                                        <td>
+                                            ${data.unit}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-success priceBtn" data-price="${data.price}" style="width:100%;">
+                                                ${data.price}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ${data.product_name}
+                                        </td>
+                                        <td>
+                                            ${data.unit}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-warning priceBtn" data-price="${data.price + 1.5}" style="width:100%;">
+                                                ${data.price + 1.5}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>`
+                    } else {
+                        var table = `<span style="font-weight:bold; color:red">No record found on survey</span>`;
+                    }
+                    $('#addModal #tablePrice').empty();
+                    $('#addModal #tablePrice').append(table);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+        $('#tablePrice').on('click', '.priceBtn', function() {
+            var price = $(this).data('price');
+            $('#addModal [name="price"]').val(price);
         });
     </script>
 @endsection

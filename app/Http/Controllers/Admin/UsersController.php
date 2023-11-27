@@ -8,14 +8,20 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $user = new User();
         $user_role = Auth::user()->role_as;
-        $getAllUsers = $user->getAllUsers()->paginate(8);
+        $filter_role = $request->filter_role;
+        if ($filter_role || $filter_role === '0') {
+            $getAllUsers = $user->getUserByRole($filter_role)->paginate(8);
+        } else {
+            $getAllUsers = $user->getAllUsers()->paginate(8);
+        }
         return view('admin.users',[
             'getAllUsers' => $getAllUsers, 
             'user_role' => $user_role   
@@ -107,5 +113,10 @@ class UsersController extends Controller
             'getAllUsers' => $getAllUsers, 
             'user_role' => $user_role   
         ]);
+    }
+
+    public function filterByRole(Request $request) {
+        Session::put(['filter_role' => $request->filter_role]);
+        return redirect()->route('users');
     }
 }

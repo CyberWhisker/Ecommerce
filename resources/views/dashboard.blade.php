@@ -12,6 +12,9 @@
         border-radius: 10px;
     }
 </style>
+@section('title')
+Kadiwa
+@endsection
 @section('content')
     <x-app-layout>
         <x-slot name="header">
@@ -81,13 +84,17 @@
                                             <div class="row">
                                                 <div class="col">
                                                     Available:
-                                                    <span class="{{$data->quantity <= 0 ? 'text-danger' : ''}}"> {{$data->quantity <= 0 ? 'Out of stock' : $data->quantity}}</span>
+                                                    <span class="{{$data->quantity <= 0 ? 'text-danger' : ''}}"> {{$data->quantity <= 0 ? 'Out of stock' : $data->quantity}} 
+                                                    @if ($data->quantity > 0)
+                                                        per {{optional($data->unit)->unit}}
+                                                    @endif
+                                                </span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn {{$data->quantity <= 0 ? 'btn-outline-secondary' : 'btn-outline-success'}}" id="addOrderBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}" {{$data->quantity <= 0 ? 'Disabled' : ''}}>Buy</button>
-                                                    <button type="button" class="btn btn-warning" id="addCartBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}">Cart</button>
+                                                    <button type="button" class="btn {{$data->quantity <= 0 ? 'btn-outline-secondary d-none' : 'btn-outline-success'}}" id="addOrderBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}" {{$data->quantity <= 0 ? 'Disabled' : ''}}>Buy</button>
+                                                    <button type="button" class="btn btn-warning {{$data->quantity <= 0 ? 'd-none' : ''}}" id="addCartBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}">Cart</button>
                                                 </div>
                                             </div>
                                         </div>

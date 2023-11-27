@@ -1,4 +1,9 @@
 $(function() {
+  $( ".datepicker" ).datepicker({
+    dateFormat: 'yy-mm-dd', // Set the desired format
+    timeFormat: 'hh:mm:ss', // Optional, set the time format
+    showTime: true,        // Optional, show the time
+  });
   $('#searchBar').addClass('d-none');
   $('#search').addClass('d-none');
   $('#searchBtn').addClass('d-none');
@@ -7,6 +12,31 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
+  var data_inventory = {
+    labels: array_horizontal2,
+    datasets: [{
+      label: 'Stock sold',
+      data: array_vertical2,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1,
+      fill: false
+    }]
+  };
   var data = {
     labels: array_horizontal,
     datasets: [{
@@ -273,6 +303,15 @@ $(function() {
     var barChart = new Chart(barChartCanvas, {
       type: 'bar',
       data: data,
+      options: options,
+    });
+  }
+  if ($("#barChartInventory").length) {
+    var barChartCanvas = $("#barChartInventory").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data_inventory,
       options: options
     });
   }

@@ -18,6 +18,15 @@ Users
             <div class="row">
                 <div class="col d-flex align-items-center">
                     User List:
+                    <form action="{{route('users')}}" method="GET">
+                        @csrf
+                        <select class="form-select" name="filter_role" style="width: 150px; margin-left: 10px;" onchange="submit()">
+                            <option selected disabled>-Filter by Role-</option>
+                            <option value="1">Admin</option>
+                            <option value="0">Customer</option>
+                            <option value="2">LGU</option>
+                        </select>
+                    </form>
                 </div>
                 <div class="col">
                     <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add user</button>

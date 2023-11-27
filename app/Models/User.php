@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -66,5 +67,10 @@ class User extends Authenticatable
             ->orWhere('address', 'like', '%' .$searchInput. '%')
             ->orWhere('email', 'like', '%' .$searchInput. '%')
             ->get();
+    }
+
+    public function getUserByRole($role_id): Builder {
+        return $this->select('*')
+            ->where('role_as', $role_id);
     }
 }

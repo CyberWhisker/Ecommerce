@@ -97,4 +97,11 @@ class SurveyController extends Controller
         ]);
 
     }
+
+    public function searchSurveyAjax(Request $request) {
+        $survey = new Survey();
+        $product_name = $request->product_name;
+        $data = $survey->searchSurveyAvg($product_name);
+        return response()->json($data);
+    }
 }
