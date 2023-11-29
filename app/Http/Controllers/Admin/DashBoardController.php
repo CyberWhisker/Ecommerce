@@ -106,7 +106,7 @@ class DashBoardController extends Controller
         Session::put([
             'chartType' => $request->chartType
         ]);
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard');
     }
 
     public function exportPdf() {
@@ -186,14 +186,17 @@ class DashBoardController extends Controller
         }
         if (empty($date_array)) {
             Session::put([
-                "date_condition" => 'empty'
+                "date_condition" => 'empty',
             ]);
         } else {
             Session::put([
                 "date_condition" => 'true',
-                "date_array" => $date_array
+                "date_array" => $date_array,
             ]);
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('admin.dashboard')->with([
+            'startDate' => Carbon::parse($startDate)->format('Y-m-d'),
+            'endDate' => Carbon::parse($endDate)->format('Y-m-d'),
+        ]);
     }
 }

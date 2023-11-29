@@ -5,27 +5,41 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
-                        <img src="{{asset('images/logo.png')}}" alt="logo" style="border-radius: 50%; height: 50px; width: 50px;">
-                    </a>
+                    @if (Auth::user()->role_as == 0)
+                        <a href="{{ route('home') }}">
+                            <img src="{{asset('images/logo.png')}}" alt="logo" style="border-radius: 50%; height: 50px; width: 50px;">
+                        </a>
+                    @else    
+                        <a href="{{ route('admin.dashboard') }}">
+                            <img src="{{asset('images/logo.png')}}" alt="logo" style="border-radius: 50%; height: 50px; width: 50px;">
+                        </a>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('cart')" :active="request()->routeIs('cart')">
-                        {{ __('Cart') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('order')" :active="request()->routeIs('order')">
-                        {{ __('Orders') }}
-                    </x-nav-link>
-                </div>
+                @if (Auth::user()->role_as == 0)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('cart')" :active="request()->routeIs('cart')">
+                            {{ __('Cart') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('order')" :active="request()->routeIs('order')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+                    </div>
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('home')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

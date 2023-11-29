@@ -25,7 +25,7 @@ class Survey extends Model
 
     public function getAllSurveyAverage(): Builder
     {
-        return $this->select('unit_id', 'product_name', \DB::raw('AVG(price) as price'))
+        return $this->select('unit_id', 'product_name', DB::raw('AVG(price) as price'))
             ->groupBy('product_name', 'unit_id');
     }
 
@@ -40,10 +40,26 @@ class Survey extends Model
     }
 
     public function searchSurveyAvg($search_input) {
-        return $this->select('unit', 'product_name', \DB::raw('AVG(price) as price'))
+        return $this->select('unit', 'product_name', DB::raw('AVG(price) as price'))
             ->leftJoin('units', 'surveys.unit_id', '=', 'units.id')
             ->where('product_name', 'like', '%' .$search_input. '%')
             ->groupBy('product_name', 'unit')
+            ->first();
+    }
+
+    public function searchLowest($search_input) {
+        return $this->select('unit', 'product_name', 'price')
+            ->leftJoin('units', 'surveys.unit_id', '=', 'units.id')
+            ->where('product_name', 'like', '%' .$search_input. '%')
+            ->orderBy('price', 'asc')
+            ->first();
+    }
+
+    public function searchHighest($search_input) {
+        return $this->select('unit', 'product_name', 'price')
+            ->leftJoin('units', 'surveys.unit_id', '=', 'units.id')
+            ->where('product_name', 'like', '%' .$search_input. '%')
+            ->orderBy('price', 'desc')
             ->first();
     }
 }

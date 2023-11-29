@@ -101,7 +101,9 @@ class SurveyController extends Controller
     public function searchSurveyAjax(Request $request) {
         $survey = new Survey();
         $product_name = $request->product_name;
-        $data = $survey->searchSurveyAvg($product_name);
-        return response()->json($data);
+        $data_avg = $survey->searchSurveyAvg($product_name);
+        $data_low = $survey->searchLowest($product_name);
+        $data_high = $survey->searchHighest($product_name);
+        return response()->json([$data_low,$data_avg,$data_high]);
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('address')->unique();
+            $table->string('address');
             $table->string('email')->unique();
             $table->bigInteger('phone_number');
             $table->tinyInteger('role_as')->default('0')->comment('0=user, 1=admin');

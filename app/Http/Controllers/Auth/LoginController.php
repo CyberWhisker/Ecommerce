@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     protected function authentication() {
-        if (Auth::user()->role_as = '1') {
-            return redirect('admin/dashboard')->with('status', 'Welcome to DashBoard');
+        if (Auth::user()->role_as == '1') {
+            return redirect('admin.dashboard')->with('status', 'Welcome to DashBoard');
         } else {
-            return redirect('/')->with('status', 'Logged in');
+            return redirect('customer.dashboard')->with('status', 'Logged in');
         }
     }
 }

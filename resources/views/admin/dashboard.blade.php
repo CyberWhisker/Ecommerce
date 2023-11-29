@@ -115,7 +115,7 @@
                                 @forelse ($data_survey as $data)
                                     <tr>
                                         <td>{{$data->product_name}}</td>
-                                        <td>{{$data->price}}</td>
+                                        <td>₱ {{number_format($data->price, 2)}}</td>
                                         <td>{{$data->unit->unit}}</td>
                                     </tr>
                                 @empty
@@ -142,14 +142,14 @@
                                         <div class="col">
                                             <span>Start Date:</span>
                                             <div class="text-center">
-                                                <input type="text" class="form-control datepicker" name="start_date" autocomplete="off" placeholder="2023-11-31">
+                                                <input type="text" class="form-control datepicker" name="start_date" autocomplete="off" placeholder="2023-11-31" value="{{session('startDate') != null ? session('startDate') : ''}}">
                                                 <span id="error_start"></span>
                                             </div>
                                         </div>
                                         <div class="col" style="margin-left: 5px;">
                                             <span>End Date:</span>
                                             <div class="text-center">
-                                                <input type="text" class="form-control datepicker" name="end_date" autocomplete="off" placeholder="2023-12-31">
+                                                <input type="text" class="form-control datepicker" name="end_date" autocomplete="off" placeholder="2023-12-31" value="{{session('endDate') != null ? session('endDate') : ''}}">
                                                 <span id="error_end"></span>
                                             </div>
                                         </div>

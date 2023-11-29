@@ -48,7 +48,7 @@ Inventory
                             <td>{{ $data->product_name }}</td>
                             <td>{{ $data->quantity }}</td>
                             <td>{{ optional($data->unit)->unit }}</td>
-                            <td>{{ $data->price }}</td>
+                            <td>₱ {{ $data->price }}</td>
                             <td>{{ $data->updated_at->format('M-m-Y') }}</td>
                             <td>
                                 <div class="dropdown">
@@ -120,9 +120,18 @@ Inventory
                         </div>
                     </form>
                     <h4>Suggested Price:</h4>
-                    <div id="tablePrice">
-    
-                    </div>
+                    <table class="table table table-striped table-hover table-bordered" id="tablePrice">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Unit</th>
+                                <th style="max-width:50px;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -156,7 +165,6 @@ Inventory
                             <div class="col">
                                 Unit: 
                                 <select class="form-select" name="unit_id" id="unit">
-
                                 </select>
                             </div>
                             <div class="col">
@@ -216,6 +224,7 @@ Inventory
                 $('#deleteModal #id').val(id);
             });
             $('.dropdown #editBtn').on('click', function(e) {
+                $('#editModal [name="unit_id"]').empty();
                 e.preventDefault();
                 $('#editModal').modal('show');
                 let id = $(this).data('id');
@@ -264,71 +273,33 @@ Inventory
                 },
                 dataType: "json",
                 success: function (data) {
-                    console.log(data.product_name);
-                    if (data.product_name != undefined) {
-                        var table = `
-                            <table class="table table-striped table-hover table-bordered" id="tablePrice">
-                                <thead>
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Unit</th>
-                                        <th style="width:50px;">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            ${data.product_name}
-                                        </td>
-                                        <td>
-                                            ${data.unit}
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-outline-danger priceBtn" data-price="${data.price - 1.5}" style="width:100%;">
-                                                ${data.price - 1.5}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            ${data.product_name}
-                                        </td>
-                                        <td>
-                                            ${data.unit}
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-outline-success priceBtn" data-price="${data.price}" style="width:100%;">
-                                                ${data.price}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            ${data.product_name}
-                                        </td>
-                                        <td>
-                                            ${data.unit}
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-outline-warning priceBtn" data-price="${data.price + 1.5}" style="width:100%;">
-                                                ${data.price + 1.5}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>`
+                    if (data[0] != null) {
+                        data.forEach(element => {
+                            var newPrice = parseFloat(element.price).toFixed(2);
+                            table += `
+                                <tr>
+                                    <td>${element.product_name}</td>
+                                    <td>${element.unit}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-success priceBtn" data-price="${newPrice}">₱ ${newPrice}</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
                     } else {
-                        var table = `<span style="font-weight:bold; color:red">No record found on survey</span>`;
+                        var table = `<tr>
+                                <td colspan='3' class="text-center"><span class="text-danger">No record found.</span></td>
+                            </tr>`;
                     }
-                    $('#addModal #tablePrice').empty();
-                    $('#addModal #tablePrice').append(table);
+                    $('#addModal #dataTable').empty();
+                    $('#addModal #dataTable').append(table);
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
                 }
             });
         });
-        $('#tablePrice').on('click', '.priceBtn', function() {
+        $('#addModal').on('click', '.priceBtn', function() {
             var price = $(this).data('price');
             $('#addModal [name="price"]').val(price);
         });

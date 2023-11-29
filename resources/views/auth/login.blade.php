@@ -22,6 +22,11 @@
                             required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            @if (Session::has('success'))
+                <div class="font-medium text-sm text-green-600 dark:text-green-400">
+                    {{Session::get('success')}}
+                </div>
+            @endif
         </div>
 
         <!-- Remember Me -->

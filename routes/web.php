@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(function () {
     // Web links start here
+    Route::get('admin.dashboard', [DashBoardController::class, 'index'])->name('admin.dashboard');
     Route::get('dashboard', [DashBoardController::class, 'index'])->name('dashboard');
     Route::get('users', [UsersController::class, 'index'])->name('users');
     Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
@@ -91,11 +92,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin', 'verified'])->group(funct
     Route::post('inventoryDate', [DashBoardController::class, 'inventoryDate'])->name('inventoryDate');
 });
 
-Route::prefix('customer')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('customer')->middleware(['auth', 'isCustomer', 'verified'])->group(function () {
     // Web links start here
     Route::get('cart', [CartController::class, 'index'])->name('cart');
     Route::get('order', [OrderController::class, 'index'])->name('order');
-
+    Route::get('customer.dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
     // Cart Function Start here
     Route::post('deleteCart', [CartController::class, 'deleteCart'])->name('deleteCart');
     Route::post('storeCart', [CartController::class, 'storeCart'])->name('storeCart');
