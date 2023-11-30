@@ -11,6 +11,11 @@
     .container .card {
         border-radius: 10px;
     }
+
+    #visa:hover {
+        border: 1px solid rgb(126, 184, 126)
+    }
+
 </style>
 @section('title')
 Kadiwa
@@ -92,10 +97,20 @@ Kadiwa
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn {{$data->quantity <= 0 ? 'btn-outline-secondary d-none' : 'btn-outline-success'}}" id="addOrderBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}" {{$data->quantity <= 0 ? 'Disabled' : ''}}>Buy</button>
-                                                    <button type="button" class="btn btn-warning {{$data->quantity <= 0 ? 'd-none' : ''}}" id="addCartBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}">Cart</button>
-                                                </div>
+                                                @if (Auth::user())
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn {{$data->quantity <= 0 ? 'btn-outline-secondary d-none' : 'btn-outline-success'}}" id="addOrderBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}" {{$data->quantity <= 0 ? 'Disabled' : ''}}>Buy</button>
+                                                        <button type="button" class="btn btn-warning {{$data->quantity <= 0 ? 'd-none' : ''}}" id="addCartBtn" data-id="{{$data->id}}" data-quantity="{{$data->quantity}}">Cart</button>
+                                                    </div>
+                                                @else 
+                                                    <form action="{{ route('dashboardAlert')}}" method="POST" id="alert">
+                                                        @csrf
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <button class="btn btn-outline-success" type="submit">Buy</button>
+                                                            <button class="btn btn-outline-warning" type="submit">Cart</button>
+                                                        </div>
+                                                    </form>
+                                                @endif 
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +178,27 @@ Kadiwa
 
                         </select>
                         <span>Address:</span>
-                        <input type="text" class="form-control" style="border-radius: 10px;" id="address" disabled>
+                        <input type="text" class="form-control" style="border-radius: 10px; margin-bottom: 10px" id="address" disabled>
+                        <input type="text" name="payment_type">
+                        <span>Select Payment:</span>
+                        <div class="row container">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <button class="btn btn-outline-warning" style="width: 100%" id="cod">COD</button>
+                                        {{-- <img src="{{ asset('images/COD.jpg')}}" alt="" style="height: 100px"> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <button class="btn btn-outline-success" style="width: 100%" id="card">Card</button>
+                                        {{-- <img src="{{ asset('images/VISA.png')}}" alt="" style="height: 50px"> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -220,6 +255,16 @@ Kadiwa
                     $('#orderModal #quantity').append(`<option value="${num}">${num}</option>`);
                 }
                 $('#orderModal').modal('show');
+            });
+            $('#orderModal #cod').on('click', function(e) {
+                e.preventDefault();
+                $('#orderModal #cod').addClass('active');
+                $('#orderModal #card').removeClass('active');
+            })
+            $('#orderModal #card').on('click', function(e) {
+                e.preventDefault();
+                $('#orderModal #card').addClass('active');
+                $('#orderModal #cod').removeClass('active');
             })
         });
         

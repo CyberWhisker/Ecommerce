@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SurveyController;
+use App\Http\Controllers\Customer\AlertController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\Customer\OrderController;
@@ -106,12 +107,13 @@ Route::prefix('customer')->middleware(['auth', 'isCustomer', 'verified'])->group
     Route::post('deleteOrder', [OrderController::class, 'deleteOrder'])->name('deleteOrder');
     Route::post('reviewOrder', [OrderController::class, 'reviewOrder'])->name('reviewOrder');
 
-    // Search Prodcut start Here
     
     // Payment function start here
     Route::post('pay', [PaymentController::class, 'pay'])->name('pay');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
+// Alert start here
+Route::post('dashboardAlert', [AlertController::class, 'dashboardAlert'])->name('dashboardAlert');
 Route::post('searchProduct', [CustomerDashboardController::class, 'searchProduct'])->name('searchProduct');
 require __DIR__ . '/auth.php';

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    @if (Auth::user()->role_as == 0)
+                    @if (!Auth::user() || Auth::user()->role_as == 0)
                         <a href="{{ route('home') }}">
                             <img src="{{asset('images/logo.png')}}" alt="logo" style="border-radius: 50%; height: 50px; width: 50px;">
                         </a>
@@ -17,7 +17,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                @if (Auth::user()->role_as == 0)
+                @if (!Auth::user() || Auth::user()->role_as == 0)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                             {{ __('Dashboard') }}
