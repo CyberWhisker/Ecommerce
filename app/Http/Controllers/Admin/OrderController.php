@@ -34,6 +34,8 @@ class OrderController extends Controller
     }
 
     public function updateOrderStatus(Request $request) {
+        $order = new Order();
+        $fetch_order = $order->fetchOrderById($request->order_id);
         try {
             $request->validate([
                 'order_id' => 'required'
@@ -45,9 +47,11 @@ class OrderController extends Controller
                 if ($new_inventory_quantity < 0) {
                     return redirect()->back()->with('error', 'Out of Stock');
                 } else {
-                    Inventory::where('id', $request->inventory_id)->update([
-                        'quantity' => $new_inventory_quantity
-                    ]);
+                    if ($fetch_order->from_cart == null) {
+                        Inventory::where('id', $request->inventory_id)->update([
+                            'quantity' => $new_inventory_quantity
+                        ]);
+                    }
                     OrderStatus::updateOrCreate(
                         [
                             'order_id' => $request->order_id,

@@ -167,7 +167,7 @@ Kadiwa
                     <h1 class="modal-title fs-5 text-white" id="orderModalLabel">Order</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('pay') }}" method="POST">
+                <form action="{{ route('pay') }}" method="POST" id="orderForm">
                     @csrf
                     <div class="modal-body">
                         <input type="hidden" name="inventory_id" id="inventory_id" value="">
@@ -179,22 +179,25 @@ Kadiwa
                         </select>
                         <span>Address:</span>
                         <input type="text" class="form-control" style="border-radius: 10px; margin-bottom: 10px" id="address" disabled>
-                        <input type="text" name="payment_type">
-                        <span>Select Payment:</span>
+                        <span style="margin-bottom: 10px">Select Payment:</span>
                         <div class="row container">
                             <div class="col">
                                 <div class="card">
+                                    <div class="card-header">
+                                        <span>Cash on Delivery</span>
+                                    </div>
                                     <div class="card-body">
-                                        <button class="btn btn-outline-warning" style="width: 100%" id="cod">COD</button>
-                                        {{-- <img src="{{ asset('images/COD.jpg')}}" alt="" style="height: 100px"> --}}
+                                        <button class="btn btn-outline-warning" style="width: 100%" id="cod"><i class="bi bi-cash-coin"></i></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="card">
+                                    <div class="card-header">
+                                        <span>Credit Card</span>
+                                    </div>
                                     <div class="card-body">
-                                        <button class="btn btn-outline-success" style="width: 100%" id="card">Card</button>
-                                        {{-- <img src="{{ asset('images/VISA.png')}}" alt="" style="height: 50px"> --}}
+                                        <button class="btn btn-outline-success" style="width: 100%" id="card"><i class="bi bi-credit-card"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -258,13 +261,17 @@ Kadiwa
             });
             $('#orderModal #cod').on('click', function(e) {
                 e.preventDefault();
+                let newRoute = "{{ route('cashOnDelivery') }}";
                 $('#orderModal #cod').addClass('active');
                 $('#orderModal #card').removeClass('active');
+                $('#orderModal #orderForm').attr('action',newRoute);
             })
             $('#orderModal #card').on('click', function(e) {
                 e.preventDefault();
+                let newRoute = "{{ route('pay') }}";
                 $('#orderModal #card').addClass('active');
                 $('#orderModal #cod').removeClass('active');
+                $('#orderModal #orderForm').attr('action',newRoute);
             })
         });
         

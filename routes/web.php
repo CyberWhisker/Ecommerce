@@ -112,6 +112,7 @@ Route::prefix('customer')->middleware(['auth', 'isCustomer', 'verified'])->group
     Route::post('pay', [PaymentController::class, 'pay'])->name('pay');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
+    Route::post('cashOnDelivery', [PaymentController::class, 'cashOnDelivery'])->name('cashOnDelivery');
 });
 // Alert start here
 Route::post('dashboardAlert', [AlertController::class, 'dashboardAlert'])->name('dashboardAlert');

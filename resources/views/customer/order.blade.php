@@ -29,7 +29,7 @@ Kadiwa/Order
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col">
                         <div class="card">
-                            <div class="card-header  {{$data->order_status == 'Cancelled' ? 'bg-danger' : ($data->orderStatus->recieve_status == '2' ? 'bg-success' : 'bg-warning')}}">
+                            <div class="card-header  {{$data->order_status == 'Cancelled' ? 'bg-danger' : (optional($data->orderStatus)->recieve_status == '2' ? 'bg-success' : 'bg-warning')}}">
                                 <span>{{$data->created_at->format('M-d-Y')}}</span>
                             </div>
                             <div class="card-body">
@@ -125,7 +125,7 @@ Kadiwa/Order
                                     </div>
                                     <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">
                                         <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}" {{$data->order_status == 'Confirmed' ? 'disabled': ''}}>Cancel Order</button>
-                                        <button class="btn btn-outline-warning" style="width: 100%; margin-top: 10px" id="reviewBtn" data-id="{{$data->id}}" {{$data->orderStatus->recieve_status != '2' ? 'disabled': ''}}>Review</button>
+                                        <button class="btn btn-outline-warning" style="width: 100%; margin-top: 10px" id="reviewBtn" data-id="{{$data->id}}" {{optional($data->orderStatus)->recieve_status != '2' ? 'disabled': ''}}>Review</button>
                                     </div>
                                 </div>
                             </div>

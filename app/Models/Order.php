@@ -16,6 +16,7 @@ class Order extends Model
         'order_status',
         'price',
         'review',
+        'from_cart',
     ];
 
     public function getOrderByUserId($user_id) {
@@ -91,5 +92,9 @@ class Order extends Model
             ->whereIn('id', $array)
             ->groupBy('inventory_id')
             ->get();
+    }
+
+    public function fetchOrderById($id) {
+        return $this->where('id', $id)->first();
     }
 }

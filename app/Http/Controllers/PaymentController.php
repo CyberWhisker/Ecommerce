@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -19,7 +20,7 @@ class PaymentController extends Controller
         $inventory = new Inventory();
         $product = $inventory->fetchInventoryById($request->inventory_id);
         $product_price = number_format($product->price, 2);
-        $product_price = $product_price * 100;
+        $product_price = (int)($product_price * 100);
         $minimum_amount = 2000;
         if ($product_price * $request->quantity < $minimum_amount) {
             return redirect()->back()->with('error', "Amount should not be less than ₱" .$minimum_amount * .010);
@@ -45,7 +46,7 @@ class PaymentController extends Controller
                         'card',
                     ],
                     'success_url' => 'http://localhost:8000/customer/success',
-                    'cancel_url' => 'http://localhost:8000',
+                    'cancel_url' => 'http://localhost:8000/customer/customer.dashboard',
                     'description' => 'Ordered Product'
                 ],
             ]
@@ -62,6 +63,10 @@ class PaymentController extends Controller
             'inventory_id' => $request->inventory_id,
             'user_id' => $user->id,
         ]);
+        
+        if ($request->cart_id != null) {
+            Cart::where('id', $request->cart_id)->delete();
+        }
         return redirect()->to($response->data->attributes->checkout_url);
     }
 
@@ -110,5 +115,31 @@ class PaymentController extends Controller
     }
     public function cancel() {
         return redirect()->back();
+    }
+
+    public function cashOnDelivery(Request $request) {
+        $user_id = Auth::user()->id;
+        $inventory = new Inventory();
+        $inventory_price = $inventory->fetchInventoryById($request->inventory_id)->price;
+        $price = $request->quantity * $inventory_price;
+        try {
+            $request->validate([
+                'inventory_id' => 'required',
+                'quantity' => 'required',
+            ]);
+            Order::create([
+                'user_id' => $user_id,
+                'inventory_id' => $request->inventory_id,
+                'quantity' => $request->quantity,
+                'price' => $price,
+                'from_cart' => $request->cart_id,
+            ]);
+            if ($request->cart_id != null) {
+                Cart::where('id', $request->cart_id)->delete();
+            }
+            return redirect()->back()->with('success', 'Order is now Pending');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

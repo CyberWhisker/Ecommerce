@@ -19,6 +19,6 @@ class CustomerMiddleware
         if (Auth::user()->role_as == '0') {
             return $next($request);
         }
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('home');
     }
 }
