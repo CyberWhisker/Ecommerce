@@ -119,6 +119,7 @@
 <script>
     document.getElementById('nextBtn').addEventListener("click", function() {
         var phoneNumberRegex = /^\d{11}$/;
+        var numberPattern = /^[0-9]+$/;
         document.getElementById('error_first_name').innerHTML = '';
         document.getElementById('error_last_name').innerHTML = '';
         document.getElementById('error_middle_name').innerHTML = '';
@@ -139,6 +140,8 @@
             document.getElementById('error_address').append('Address required');
         } else if(phone_number == '') {
             document.getElementById('error_phone_number').append('Middle name required');
+        } else if(!numberPattern.test(phone_number)) {
+            document.getElementById('error_phone_number').append('Please enter numbers only');
         } else if(!phoneNumberRegex.test(phone_number)) {
             document.getElementById('error_phone_number').append('Required 11 digit number');
         } else {
