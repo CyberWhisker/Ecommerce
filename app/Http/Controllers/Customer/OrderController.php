@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Inventory;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class OrderController extends Controller
             $request->validate([
                 'id' => 'required'
             ]);
+            OrderStatus::where('order_id', $request->id)->delete();
             Order::where('id', $request->id)->delete();
             return redirect()->back()->with('success', 'Order Has been Cancelled');
         } catch (Exception $e) {

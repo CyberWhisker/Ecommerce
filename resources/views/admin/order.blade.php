@@ -86,7 +86,7 @@ Order
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center">
+                            <td colspan="9" class="text-center">
                                 <span class="text-danger" style="font-weight: bold">No record Found</span>
                             </td>
                         </tr>

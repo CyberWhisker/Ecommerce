@@ -7,6 +7,7 @@ use App\Models\Unit;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationData;
 
 class SettingController extends Controller
 {
@@ -23,7 +24,7 @@ class SettingController extends Controller
     public function storeUnit(Request $request){
         try {
             $request->validate([
-                'unit' => ['required'],
+                'unit' => ['required', 'unique:units,unit'],
             ]);
             Unit::create([
                 'unit' => $request->unit
