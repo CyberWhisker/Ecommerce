@@ -34,29 +34,29 @@ Kadiwa/Cart
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col" style="flex: 5%;">
+                                    <div class="col" >
                                         @if ($data->inventory->image != null)
-                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="width: 100%; height: 100%;">
+                                            <img src="{{ asset('storage/'.$data->inventory->image)}}" alt="Image" style="height: 130px">
                                         @else 
-                                            <img src="{{ asset('images/no-image.png')}}" alt="No Image" style="height: 100px; width:100px;">
+                                            <img src="{{ asset('images/no-image.png')}}" alt="No Image" style="height: 130px">
                                         @endif
                                     </div>
-                                    <div class="col" style="flex: 10%; border-left: 2px solid rgb(143, 139, 139)">
+                                    <div class="col" style="border-left: 2px solid rgb(143, 139, 139)">
                                         <p>{{$data->inventory->product_name}}</p>
                                         <p>Quantity: {{$data->quantity}}</p>
                                         <p>Address: {{$data->user->address}}</p>
                                         <p>Contact: {{$data->user->phone_number}}</p>
                                     </div>
-                                    <div class="col text-center" style="flex: 30%;">
+                                    <div class="col text-center sm:hidden hidden">
                                         @if ($data->inventory->quantity <= 0)
                                             <span class="text-danger" style="font-weight:bold; font-size: 40px;">Out of Stock</span>
                                         @endif
                                     </div>
-                                    <div class="col" style="flex: 10%;">
-                                        <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱ {{$data->quantity * $data->inventory->price}}</span>
+                                    <div class="col">
+                                        <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱{{$data->quantity * $data->inventory->price}}</span>
                                     </div>
                                     <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">
-                                        <button class="btn {{$data->inventory->quantity <= 0 ? 'btn-outline-secondary' : 'btn-success'}}" style="margin-bottom: 10px; width:100%" id="orderBtn" data-id="{{$data->id}}"  {{$data->inventory->quantity <= 0 ? 'disabled' : ''}}>Buy</button>
+                                        <button class="btn btn-success" style="margin-bottom: 10px; width:100%" id="orderBtn" data-id="{{$data->id}}">Buy</button>
                                         <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}">Remove</button>
                                     </div>
                                 </div>

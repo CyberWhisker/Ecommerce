@@ -18,7 +18,7 @@ Users
             <div class="row">
                 <div class="col d-flex align-items-center">
                     User List:
-                    <form action="{{route('users')}}" method="GET">
+                    {{-- <form action="{{route('users')}}" method="GET">
                         @csrf
                         <select class="form-select" name="filter_role" style="width: 150px; margin-left: 10px;" onchange="submit()">
                             <option selected disabled>-Filter by Role-</option>
@@ -26,7 +26,7 @@ Users
                             <option value="0">Customer</option>
                             <option value="2">LGU</option>
                         </select>
-                    </form>
+                    </form> --}}
                 </div>
                 <div class="col">
                     <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add user</button>
@@ -104,33 +104,54 @@ Users
                         @csrf
                         <div class="row">
                             <div class="col">
-                                First Name: <input type="text" class="form-control" name="first_name" required>
+                                First Name: <input type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required>
+                                @error('first_name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                Middle Name: <input type="text" class="form-control" name="middle_name" required>
+                                Middle Name: <input type="text" class="form-control" name="middle_name" value="{{ old('middle_name') }}" required>
+                                @error('middle_name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                Last Name: <input type="text" class="form-control" name="last_name" required>
+                                Last Name: <input type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required>
+                                @error('last_name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                Address: <input type="text" class="form-control" name="address" required>
+                                Address: <input type="text" class="form-control" name="address" value="{{ old('address') }}" required>
+                                @error('address')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col">
-                                Contact Number: <input type="text" class="form-control" name="phone_number" required>  
+                                Contact Number: <input type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" placeholder="09123456789" required>  
+                                @error('phone_number')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                Email: <input type="text" class="form-control" name="email" required>
+                                Email: <input type="text" class="form-control" name="email" {{ old('email') }} required>
+                                @error('email')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col">
-                                Password: <input type="text" class="form-control" name="password" required>
+                                Password: <input type="text" class="form-control" name="password" {{ old('password') }} required>
+                                @error('password')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
                         {{-- <div class="col" style="margin-top: 10px;">

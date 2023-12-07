@@ -16,7 +16,6 @@ class DashBoardController extends Controller
 {
     public function index(Request $request) {
         $user = new User();
-        $inventory = new Inventory();
         $survey = new Survey();
         $order = new Order();
         $user_count = $user->getUsers()->count();
@@ -80,7 +79,7 @@ class DashBoardController extends Controller
             $chartDate = 1;
         }
         if (!$chartType) {
-            $chartType = 1;
+            $chartType = 2;
         }
         return view('admin.dashboard',[
             'user_role' => $user_role,

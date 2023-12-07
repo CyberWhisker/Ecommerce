@@ -29,6 +29,7 @@ class Order extends Model
 
     public function getOrderChart() {
         return $this->select('inventory_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->where('order_status', 'Confirmed')
             ->groupBy('inventory_id')
             ->get();
     }
@@ -38,6 +39,7 @@ class Order extends Model
                 DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date'), 
                 DB::raw('SUM(price) as total_price')
             )
+            ->where('order_status', 'Confirmed')
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
             ->get();
     }
@@ -47,6 +49,7 @@ class Order extends Model
                 DB::raw('DATE_FORMAT(created_at, "Week %u") as date'),
                 DB::raw('SUM(price) as total_price')
             )
+            ->where('order_status', 'Confirmed')
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "Week %u")'))
             ->get();
     }
@@ -56,6 +59,7 @@ class Order extends Model
                 DB::raw('DATE_FORMAT(created_at, "%b") as date'),
                 DB::raw('SUM(price) as total_price')
             )
+            ->where('order_status', 'Confirmed')
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%b")'))
             ->get();
     }
@@ -90,6 +94,7 @@ class Order extends Model
     public function getOrderByArray($array) {
         return $this->select('inventory_id', DB::raw('SUM(quantity) as total_quantity'))
             ->whereIn('id', $array)
+            ->where('order_status', 'Confirmed')
             ->groupBy('inventory_id')
             ->get();
     }

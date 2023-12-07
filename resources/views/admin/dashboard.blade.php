@@ -71,6 +71,17 @@
                                 </form>
                             </div>
                             <div class="col">
+                                {{-- <form action="{{ route('chartType')}}" method="POST">
+                                    @csrf
+                                    <select class="form-select" name="chartType" id="chartType" style="float: right;" onchange="submit()">
+                                        <option value="0" disabled>-Select Chart-</option>
+                                        <option value="1" {{ $chartType == 1 ? 'selected' : ''}}>Bar Chart</option>
+                                        <option value="2" {{ $chartType == 2 ? 'selected' : ''}}>Pie Chart</option>
+                                        <option value="3" {{ $chartType == 3 ? 'selected' : ''}}>Line Chart</option>
+                                    </select>
+                                </form> --}}
+                            </div>
+                            <div class="col" style="max-width: 150px">
                                 <div class="row">
                                     <div class="col">
                                         <form action="{{ route('chartDate') }}" method="POST">
@@ -80,17 +91,6 @@
                                                 <option value="1" {{ $chartDate == 1 ? 'selected' : ''}}>Daily</option>
                                                 <option value="2" {{ $chartDate == 2 ? 'selected' : ''}}>Weekly</option>
                                                 <option value="3" {{ $chartDate == 3 ? 'selected' : ''}}>Monthly</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col">
-                                        <form action="{{ route('chartType')}}" method="POST">
-                                            @csrf
-                                            <select class="form-select" name="chartType" id="chartType" style="float: right;" onchange="submit()">
-                                                <option value="0" disabled>-Select Chart-</option>
-                                                <option value="1" {{ $chartType == 1 ? 'selected' : ''}}>Bar Chart</option>
-                                                <option value="2" {{ $chartType == 2 ? 'selected' : ''}}>Pie Chart</option>
-                                                <option value="3" {{ $chartType == 3 ? 'selected' : ''}}>Line Chart</option>
                                             </select>
                                         </form>
                                     </div>

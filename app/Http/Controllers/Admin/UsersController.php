@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
 {
@@ -19,7 +20,7 @@ class UsersController extends Controller
         if ($filter_role || $filter_role === '0') {
             $getAllUsers = $user->getUserByRole($filter_role)->paginate(8);
         } else {
-            $getAllUsers = $user->getAllUsers()->paginate(8);
+            $getAllUsers = $user->getAllUsers()->where('role_as', '2')->paginate(8);
         }
         return view('admin.users',[
             'getAllUsers' => $getAllUsers, 
@@ -35,23 +36,27 @@ class UsersController extends Controller
                 'last_name' => ['required', 'string', 'max:255'],
                 'middle_name' => ['required', 'string', 'max:255'],
                 'address' => ['required', 'string', 'max:255'],
-                'phone_number' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'regex:/^09[0-9]{9}$/'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
                 'password' => ['required'],
             ]);
-            $user = User::create([
+            User::create([
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name,
                 'last_name' => $request->last_name,
                 'address' => $request->address,
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
+                'role_as' => '2',
                 'password' => Hash::make($request->password),
             ]);
             return redirect()->back()->with('success', 'Successfully added user');
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        } catch (ValidationException $e) {
+            return redirect()
+                ->back()
+                ->withInput($request->all()) // Repopulate the form with old input
+                ->withErrors($e->validator);
+            }
     }
     public function editUser(Request $request){
         try {

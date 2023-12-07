@@ -31,7 +31,7 @@ Kadiwa
         <div class="container" style="padding: 20px;">
             @include('customer/alert')
             <div class="row">
-                <div class="col">
+                <div class="col mb-3">
                     <div class="card">
                         <div class="card-header text-center">
                             <span>Search</span>
@@ -56,11 +56,12 @@ Kadiwa
                                     }
                                     $rating = $rating_collection->avg();
                                 @endphp
-                                <div class="col" id="items" style="margin-bottom: 90px;">
+                                {{-- Small Screen --}}
+                                <div class="col" id="items" style="margin-bottom: 130px;">
                                     <div class="card">
-                                        <div class="card-body" style="height: 200px;">
+                                        <div class="card-header">
                                             @if ($data->image != null)
-                                                <img src="{{ asset('storage/'.$data->image)}}" alt="Image" style="width: 100%; height: 100%;">
+                                                <img src="{{ asset('storage/'.$data->image)}}" alt="Image" style="width: 100%; height: 176px">
                                             @else 
                                                 <img src="{{ asset('images/no-image.png')}}" alt="No Image">
                                             @endif
@@ -77,7 +78,7 @@ Kadiwa
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-body p-2">
                                             <div class="row">
                                                 <div class="col">
                                                     {{$data->product_name}}
@@ -96,6 +97,8 @@ Kadiwa
                                                 </span>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="card-footer">
                                             <div class="row">
                                                 @if (Auth::user())
                                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -114,8 +117,7 @@ Kadiwa
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
+                                </div>       
                             @empty
                                 <div class="card">
                                     <div class="card-body text-center">

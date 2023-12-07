@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number',
         'email',
         'password',
+        'role_as'
     ];
 
     /**
@@ -62,10 +63,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function searchUser($searchInput) {
-        return $this->where('last_name', 'like', '%' .$searchInput. '%')
-            ->orWhere('first_name', 'like', '%' .$searchInput. '%')
-            ->orWhere('address', 'like', '%' .$searchInput. '%')
-            ->orWhere('email', 'like', '%' .$searchInput. '%')
+        return $this
+            ->where('role_as', '2')
+            ->where(function ($query) use ($searchInput) {
+                $query->where('last_name', 'like', '%' . $searchInput . '%')
+                    ->orWhere('first_name', 'like', '%' . $searchInput . '%')
+                    ->orWhere('address', 'like', '%' . $searchInput . '%')
+                    ->orWhere('email', 'like', '%' . $searchInput . '%');
+            })
             ->get();
     }
 

@@ -18,6 +18,17 @@ class PaymentController extends Controller
     public function pay(Request $request) {
         $user = Auth::user();
         $inventory = new Inventory();
+        if (!$request->cart_id) {
+            $data_inventory_quantity = $inventory->fetchInventoryById($request->inventory_id)->quantity;
+            $dif_inventory_quantity = $data_inventory_quantity - $request->quantity;
+            if ($dif_inventory_quantity >= 0) {
+                Inventory::where('id', $request->inventory_id)->update([
+                    'quantity' => $dif_inventory_quantity
+                ]);
+            } else {
+                return redirect()->back()->with('error', 'Item is out of stock...');
+            }
+        }
         $product = $inventory->fetchInventoryById($request->inventory_id);
         $product_price = number_format($product->price, 2);
         $product_price = (int)($product_price * 100);
@@ -46,7 +57,7 @@ class PaymentController extends Controller
                         'card',
                     ],
                     'success_url' => 'http://localhost:8000/customer/success',
-                    'cancel_url' => 'http://localhost:8000/customer/customer.dashboard',
+                    'cancel_url' => 'http://localhost:8000/customer/cancel',
                     'description' => 'Ordered Product'
                 ],
             ]
@@ -62,6 +73,7 @@ class PaymentController extends Controller
             'session_id' => $response->data->id,
             'inventory_id' => $request->inventory_id,
             'user_id' => $user->id,
+            'dif_inventory_quantity' => $dif_inventory_quantity
         ]);
         
         if ($request->cart_id != null) {
@@ -99,10 +111,6 @@ class PaymentController extends Controller
                     'order_id' => $order_id,
                     'process_status' => 1
                 ]);
-                $new_inv_quantity = $inventory->fetchInventoryById($inventory_id)->quantity - $data->quantity;
-                Inventory::where('id', $inventory_id)->update([
-                    'quantity' => $new_inv_quantity
-                ]);
             }
             $data_order = $order->getOrderByUserId($user_id);
             DB::commit();
@@ -114,6 +122,12 @@ class PaymentController extends Controller
         
     }
     public function cancel() {
+        $inventory = new Inventory();
+        $data_inventory_quantity = $inventory->fetchInventoryById(Session::get('inventory_id'))->quantity;
+        $sum_inventory_quantity = $data_inventory_quantity + Session::get('dif_inventory_quantity');
+        Inventory::where('id', Session::get('inventory_id'))->update([
+            'quantity' => $sum_inventory_quantity
+        ]);
         return redirect()->back();
     }
 
