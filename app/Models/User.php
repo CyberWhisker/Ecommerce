@@ -64,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function searchUser($searchInput) {
         return $this
-            ->where('role_as', '2')
+            ->whereIn('role_as', ['2','1'])
             ->where(function ($query) use ($searchInput) {
                 $query->where('last_name', 'like', '%' . $searchInput . '%')
                     ->orWhere('first_name', 'like', '%' . $searchInput . '%')

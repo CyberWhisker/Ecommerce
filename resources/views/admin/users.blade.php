@@ -18,15 +18,14 @@ Users
             <div class="row">
                 <div class="col d-flex align-items-center">
                     User List:
-                    {{-- <form action="{{route('users')}}" method="GET">
+                    <form action="{{route('users')}}" method="GET">
                         @csrf
                         <select class="form-select" name="filter_role" style="width: 150px; margin-left: 10px;" onchange="submit()">
                             <option selected disabled>-Filter by Role-</option>
-                            <option value="1">Admin</option>
-                            <option value="0">Customer</option>
+                            <option value="1">Farmer Association</option>
                             <option value="2">LGU</option>
                         </select>
-                    </form> --}}
+                    </form>
                 </div>
                 <div class="col">
                     <button class="btn btn-primary" style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#addModal">Add user</button>
@@ -58,7 +57,7 @@ Users
                             <td>{{ $data->email }}</td>
                             <td>
                                 @if ($data->role_as == '1')
-                                    Admin
+                                    Farmer Association
                                 @elseif ($data->role_as == '2')
                                     LGU
                                 @else 
@@ -204,18 +203,19 @@ Users
                             <div class="col">
                                 Address: <input type="text" class="form-control" name="address" required>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col">
                                 Contact Number: <input type="text" class="form-control" name="phone_number" required>
                             </div>
-                        </div>
-                        <div class="col" style="margin-top: 10px;">
-                            Set Role: 
-                            <select class="form-select select2" name="role_as" id="role_as" style="width: 30%;">
-                                <option selected disabled>-Select Role-</option>
-                                <option value="0">Customer</option>
-                                <option value="1">Admin</option>
-                                <option value="2">LGU</option>
-                            </select>
+                            <div class="col">
+                                Set Role: 
+                                <select class="form-select select2" name="role_as" id="role_as">
+                                    <option selected disabled>-Select Role-</option>
+                                    <option value="1">Farmers Association</option>
+                                    <option value="2">LGU</option>
+                                </select>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -105,8 +105,8 @@ Route::prefix('customer')->middleware(['auth', 'isCustomer', 'verified'])->group
     // Order Function Start Here
     Route::post('storeOrder', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::post('deleteOrder', [OrderController::class, 'deleteOrder'])->name('deleteOrder');
+    Route::post('removeOrder', [OrderController::class, 'removeOrder'])->name('removeOrder');
     Route::post('reviewOrder', [OrderController::class, 'reviewOrder'])->name('reviewOrder');
-
     
     // Payment function start here
     Route::post('pay', [PaymentController::class, 'pay'])->name('pay');

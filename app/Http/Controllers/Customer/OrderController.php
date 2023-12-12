@@ -52,9 +52,24 @@ class OrderController extends Controller
             $request->validate([
                 'id' => 'required'
             ]);
-            OrderStatus::where('order_id', $request->id)->delete();
-            Order::where('id', $request->id)->delete();
+            Order::where('id', $request->id)
+                ->update([
+                    "order_status" => "Cancel Processing"
+                ]);
             return redirect()->back()->with('success', 'Order Has been Cancelled');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function removeOrder(Request $request) {
+        try {
+            $request->validate([
+                'id' => 'required'
+            ]);
+            Order::where('id', $request->id)->delete();
+            OrderStatus::where('order_id', $request->id)->delete();
+            return redirect()->back()->with('success', 'Order Has been Removed');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

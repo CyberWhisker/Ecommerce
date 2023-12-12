@@ -117,14 +117,18 @@ Kadiwa/Order
                                     </div>
                                     <div class="col">
                                         <div style="text-align:right;">
-                                            <input type="text" class="{{$data->order_status == 'Pending' ? 'bg-warning' : ($data->order_status == 'Confirmed' ? 'bg-success' : 'bg-danger')}}" value="{{$data->order_status}}" style="width: 110px; float: right;" disabled>
+                                            <input type="text" class="text-center {{$data->order_status == 'Pending' ? 'bg-warning' : ($data->order_status == 'Confirmed' ? 'bg-success' : 'bg-danger')}}" value="{{$data->order_status}}" style="width: 100%; float: right; border-radius: 20px" disabled>
                                             <br>
                                             <br>
                                             <span class="text-danger" style="float: right; font-weight:bold; font-size: 40px">₱ {{$data->price}}</span>
                                         </div>
                                     </div>
                                     <div class="col" style="border-left: 2px solid rgb(143, 139, 139)" id="btn-group">
-                                        <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}" {{$data->order_status == 'Confirmed' ? 'disabled': ''}}>Cancel Order</button>
+                                        @if ($data->order_status == 'Cancelled')
+                                            <button class="btn btn-danger" style="width: 100%;" id="removeBtn" data-id="{{$data->id}}" {{$data->order_status == 'Confirmed' ? 'disabled': ''}}>Remove</button>
+                                        @else
+                                            <button class="btn btn-danger" style="width: 100%;" id="deleteBtn" data-id="{{$data->id}}" {{$data->order_status == 'Confirmed' ? 'disabled': ''}}>Cancel Order</button>
+                                        @endif
                                         <button class="btn btn-outline-warning" style="width: 100%; margin-top: 10px" id="reviewBtn" data-id="{{$data->id}}" {{optional($data->orderStatus)->recieve_status != '2' ? 'disabled': ''}}>Review</button>
                                     </div>
                                 </div>
@@ -159,6 +163,28 @@ Kadiwa/Order
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{ route('deleteOrder') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
+                    This product will be removed!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal for Remove -->
+<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5 text-white" id="removeModalLabel">Warning!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('removeOrder') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
@@ -228,6 +254,12 @@ Kadiwa/Order
                 let id = $(this).data('id');
                 $('#deleteModal').modal('show');
                 $('#deleteModal #id').val(id);
+            });
+            $('#btn-group #removeBtn').on('click', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $('#removeModal').modal('show');
+                $('#removeModal #id').val(id);
             });
             $('#btn-group #reviewBtn').on('click', function(e) {
                 e.preventDefault();

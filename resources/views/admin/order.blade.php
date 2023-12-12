@@ -66,7 +66,7 @@ Order
                                                 <input type="hidden" name="order_id" value="{{$data->id}}">
                                                 <input type="hidden" name="inventory_id" value="{{$data->inventory_id}}">
                                                 <input type="hidden" name="quantity" value="{{$data->quantity}}">
-                                                <input type="hidden" name="order_status" value="Confirmed">
+                                                <input type="hidden" name="order_status" value="{{ $data->order_status == 'Pending' ? 'Confirmed' : 'Cancelled'}}">
                                                 <a type="submit" class="dropdown-item {{$data->order_status == 'Confirmed' ? 'disabled': ''}}" href="#" id="confirmBtn" data-id="{{$data->id}}">Confirm</a>
                                             </form>
                                         </li>

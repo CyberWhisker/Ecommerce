@@ -20,7 +20,7 @@ class UsersController extends Controller
         if ($filter_role || $filter_role === '0') {
             $getAllUsers = $user->getUserByRole($filter_role)->paginate(8);
         } else {
-            $getAllUsers = $user->getAllUsers()->where('role_as', '2')->paginate(8);
+            $getAllUsers = $user->getAllUsers()->whereIn('role_as', ['2','1'])->paginate(8);
         }
         return view('admin.users',[
             'getAllUsers' => $getAllUsers, 
