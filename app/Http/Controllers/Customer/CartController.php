@@ -61,7 +61,7 @@ class CartController extends Controller
                 'quantity' => $new_quantity
             ]);
             Cart::where('id', $request->id)->delete();
-            return redirect()->back()->with('error', 'Successfully deleted from Survey');
+            return redirect()->back()->with('error', 'Successfully deleted from Cart');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

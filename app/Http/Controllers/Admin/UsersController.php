@@ -123,4 +123,10 @@ class UsersController extends Controller
         Session::put(['filter_role' => $request->filter_role]);
         return redirect()->route('users');
     }
+
+    public function testGetUser() {
+        $user = new User();
+        $users = $user->getUsers();
+        return response()->json($users);
+    }
 }

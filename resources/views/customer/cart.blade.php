@@ -70,7 +70,7 @@ Kadiwa/Cart
                 <div class="col">
                     <div class="card">
                         <div class="card-header text-center">
-                            <span>Category</span>
+                            <span>Cart List</span>
                         </div>
                         <div class="card-body text-center">
                             <span class="text-danger">Cart is empty</span>

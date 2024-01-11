@@ -29,6 +29,10 @@ use App\Http\Controllers\StoreController;
 
 Route::get('/', [CustomerDashboardController::class, 'index'])->name('home');
 
+Route::get('testGetUser', [UsersController::class, 'testGetUser'])->name('testGetUser');
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

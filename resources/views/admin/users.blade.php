@@ -147,7 +147,7 @@ Users
                                 @enderror
                             </div>
                             <div class="col">
-                                Password: <input type="text" class="form-control" name="password" {{ old('password') }} required>
+                                Password: <input type="password" class="form-control" name="password" {{ old('password') }} required>
                                 @error('password')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror

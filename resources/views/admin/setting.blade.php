@@ -13,7 +13,7 @@ Setting
 </style>
 @section('content')
     <div class="row" style="height: ">
-        <div class="col">
+        {{-- <div class="col">
             <div class="card">
                 <div class="card-header" style="background-color: #8acbff;height: 50px;">
                     <div style="margin-top: 5px;">Setting</div>
@@ -26,7 +26,7 @@ Setting
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col" style="flex: 50%">
             <div class="card">
                 <div class="card-header" style="background-color: #8acbff;height: 50px;">
@@ -74,7 +74,7 @@ Setting
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editModalLabel">Edit Modal User</h1>
+                <h1 class="modal-title fs-5" id="editModalLabel">Edit Modal Unit</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

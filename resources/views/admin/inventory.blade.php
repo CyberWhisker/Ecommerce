@@ -100,7 +100,7 @@ Inventory
                                 {{-- Unit: <input type="text" class="form-control" name="unit" required> --}}
                                 Unit: 
                                 <select class="form-select" name="unit_id" id="unit">
-                                    <option selcted>Select Measure Unit</option>
+                                    <option selcted>Unit of Measurement</option>
                                     @forelse ($data_unit as $data)
                                         <option value="{{$data->id}}">{{$data->unit}}</option>
                                     @empty

@@ -18,6 +18,7 @@ class PaymentController extends Controller
     public function pay(Request $request) {
         $user = Auth::user();
         $inventory = new Inventory();
+        $dif_inventory_quantity = $request->quantity;
         if (!$request->cart_id) {
             $data_inventory_quantity = $inventory->fetchInventoryById($request->inventory_id)->quantity;
             $dif_inventory_quantity = $data_inventory_quantity - $request->quantity;

@@ -10,10 +10,17 @@
     }
     .container .card {
         border-radius: 10px;
+        overflow: hidden;
     }
 
     #visa:hover {
         border: 1px solid rgb(126, 184, 126)
+    }
+
+    .card-link:hover {
+        display: block;
+        text-decoration: none; /* Optional: Remove default underline */
+        color: black;
     }
 
 </style>
@@ -47,6 +54,38 @@ Kadiwa
                 </div>
                 <div class="col" style="flex: 65%;">
                     <div class="content">
+                        {{-- <div class="row">
+                            <div class="col">
+                                <a href="/" class="card-link">
+                                    <div class="card">
+                                        <div class="card-body bg-green-400">
+                                            <div class="row">
+                                                <div class="col d-flex align-items-center">
+                                                    <span class="fs-2 fw-bold">All Products</span>
+                                                </div>
+                                                <div class="col">
+                                                    <img class="float-right opacity-30" src="{{asset('images/AllProductIcon.png')}}" alt="All" style="height: 150px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col d-flex align-items-center">
+                                                <span class="fs-2 fw-bold">Local Products</span>
+                                            </div>
+                                            <div class="col">
+                                                <img class="float-right opacity-30" src="{{asset('images/LocalProductIcon.png')}}" alt="All" style="height: 150px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
                         <div class="row">
                             @forelse ($data_inventory as $data)
                                 @php
@@ -92,7 +131,7 @@ Kadiwa
                                                     Available:
                                                     <span class="{{$data->quantity <= 0 ? 'text-danger' : ''}}"> {{$data->quantity <= 0 ? 'Out of stock' : $data->quantity}} 
                                                     @if ($data->quantity > 0)
-                                                        per {{optional($data->unit)->unit}}
+                                                         {{optional($data->unit)->unit}}
                                                     @endif
                                                 </span>
                                                 </div>
